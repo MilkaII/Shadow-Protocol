@@ -23,7 +23,8 @@ insert into card_type (ct_name) values ('Chief'),('Member'),('High Ranking Membe
 insert into card (crd_id, crd_cost, crd_damage, crd_health, crd_name, crd_gang, crd_type_id, crd_gangability, crd_ability) values 
    (1, 5, 5, 25, "Cipher","Neon Syndicate", 1 , true, false),
    (2, 2, 9, 6, "Armitager", "Neon Syndicate", 2, false, true);
-   
+
+INSERT INTO user VALUES (1,'me','$2b$10$Wemfac2wY/7RSCdKxuYUL.GV2clfhXC66OL76uCpDFUmpYZ/bGZtW','48MnTVJ6sKIvanVHbP5Vx5rysbYrVN4EbYmk4D8xESdfm1hx8jDfNFZGNw9OZs'),(2,'me2','$2b$10$6j2xIDnnxv.TLfBSstbbO.qE7wFTf5envx/uijiFjCP3slsy7EE4K','dQ7NrsbPsuF81xFGNioR1K0tiYkjtxOhemcgMhuFIS68VrFUC9gggm3JCgzkqe');  
 INSERT INTO game VALUES (1,1,2);
 INSERT INTO user_game VALUES (1,1,1,2),(2,2,1,1);
 
