@@ -17,5 +17,14 @@ insert into scoreboard_state (sbs_state) values ('Tied');
 insert into scoreboard_state (sbs_state) values ('Lost');
 insert into scoreboard_state (sbs_state) values ('Won');
 
+insert into card_type (ct_name) values ('Chief'),('Member'),('High Ranking Member'), ('Hacks');
 
+
+insert into card (crd_id, crd_cost, crd_damage, crd_health, crd_name, crd_gang, crd_type_id, crd_gangability, crd_ability) values 
+   (1, 5, 5, 25, "Cipher","Neon Syndicate", 1 , true, false),
+   (2, 2, 9, 6, "Armitager", "Neon Syndicate", 2, false, true);
+INSERT INTO game VALUES (1,1,2);
+INSERT INTO user_game VALUES (1,1,1,2),(2,2,1,1);
+
+INSERT INTO user_game_card VALUES (1,1,CEIL(RAND()*2),1),(2,1,CEIL(RAND()*2),1),(3,1,CEIL(RAND()*2),1);
 

@@ -28,7 +28,7 @@ class Play {
             await pool.query(`Update game set gm_state_id=? where gm_id = ?`, [2, game.id]);
 
             // ---- Specific rules for each game start bellow
-
+            await MatchDecks.genPlayerDeck(p1Id);
         } catch (err) {
             console.log(err);
             return { status: 500, result: err };
