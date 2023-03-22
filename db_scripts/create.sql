@@ -56,11 +56,7 @@ create table card (
     crd_health int not null,
     crd_name varchar(50) not null,
     crd_gang varchar(50) not null,
-    crd_type_id varchar(50) not null,
-    crd_gangability boolean not null,
-    crd_ability boolean not null,
-    crd_gangability_note varchar(200),
-    crd_ability_note varchar(200),
+    crd_type_id int not null,
     primary key (crd_id));
 
 create table card_type (
@@ -70,9 +66,10 @@ create table card_type (
 
 #all decks of the game created by us, not by the user
 create table deck(
-	deck_id int not null auto_increment,
+	d_id int not null auto_increment,
+    deck_id int not null,
     deck_crd_id int not null,
-    primary key (deck_id));
+    primary key (d_id));
 
 #Cards in the game (hand or field) 
 create table user_game_card (
@@ -139,6 +136,6 @@ alter table game_field_column add constraint gfcol_fk_card
             foreign key (gfcol_crd_id) references card(crd_id)
 			ON DELETE NO ACTION ON UPDATE NO ACTION; 
 
-alter table card add constraint card_fk_card_type
+alter table card add constraint card_fk_crd_type
             foreign key (crd_type_id) references card_type(ct_id) 
 			ON DELETE NO ACTION ON UPDATE NO ACTION;

@@ -20,11 +20,19 @@ insert into scoreboard_state (sbs_state) values ('Won');
 insert into card_type (ct_name) values ('Chief'),('Member'),('High Ranking Member'), ('Hacks');
 
 
-insert into card (crd_id, crd_cost, crd_damage, crd_health, crd_name, crd_gang, crd_type_id, crd_gangability, crd_ability) values 
-   (1, 5, 5, 25, "Cipher","Neon Syndicate", 1 , true, false),
-   (2, 2, 9, 6, "Armitager", "Neon Syndicate", 2, false, true);
+insert into card (crd_id, crd_cost, crd_damage, crd_health, crd_name, crd_gang, crd_type_id) values 
+   (1, 5, 5, 25, "Cipher","Neon Syndicate", 1),
+   (2, 2, 9, 6, "Armitager", "Neon Syndicate", 2),
+   (3, 2, 1, 12, "Gunnar","Neon Syndicate", 2),
+   (4, 2, 2, 1, "Rezin","Neon Syndicate", 2),
+   (5, 2, 3, 5, "Maxine","Neon Syndicate", 2),
+   (6, 5, 5, 25, "Makko","Data Devils", 1),
+   (7, 2, 9, 6, "Erythrina", "Data Devils", 2),
+   (8, 2, 1, 12, "Vyrva","Data Devils", 2),
+   (9, 2, 2, 1, "Dredd Officer","Data Devils", 2),
+   (10, 2, 3, 5, "Deckard","Data Devils", 2);
+   
+insert into deck (deck_id, deck_crd_id) values (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2, 6), (2, 7), (2, 8), (2, 9), (2, 10);
 
-INSERT INTO user VALUES (1,'me','$2b$10$Wemfac2wY/7RSCdKxuYUL.GV2clfhXC66OL76uCpDFUmpYZ/bGZtW','48MnTVJ6sKIvanVHbP5Vx5rysbYrVN4EbYmk4D8xESdfm1hx8jDfNFZGNw9OZs'),(2,'me2','$2b$10$6j2xIDnnxv.TLfBSstbbO.qE7wFTf5envx/uijiFjCP3slsy7EE4K','dQ7NrsbPsuF81xFGNioR1K0tiYkjtxOhemcgMhuFIS68VrFUC9gggm3JCgzkqe');  
-INSERT INTO game VALUES (1,1,2);
-INSERT INTO user_game VALUES (1,1,1,2),(2,2,1,1);
+INSERT INTO user VALUES (1,'me','$2b$10$Wemfac2wY/7RSCdKxuYUL.GV2clfhXC66OL76uCpDFUmpYZ/bGZtW','48MnTVJ6sKIvanVHbP5Vx5rysbYrVN4EbYmk4D8xESdfm1hx8jDfNFZGNw9OZs'),(2,'me2','$2b$10$6j2xIDnnxv.TLfBSstbbO.qE7wFTf5envx/uijiFjCP3slsy7EE4K','dQ7NrsbPsuF81xFGNioR1K0tiYkjtxOhemcgMhuFIS68VrFUC9gggm3JCgzkqe');
 
