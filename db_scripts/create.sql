@@ -26,6 +26,7 @@ create table user_game (
     ug_user_id int not null,
     ug_game_id int not null,
     ug_state_id int not null,
+    ug_deck_id int,
     primary key (ug_id));
 
 create table user_game_state (
@@ -57,8 +58,14 @@ create table card (
     crd_name varchar(50) not null,
     crd_gang varchar(50) not null,
     crd_type_id int not null,
+    crd_state_id int not null default 1,
     primary key (crd_id));
 
+create table card_state (
+    crd_state_id int not null auto_increment,
+    crd_state varchar (60) not null,
+    primary key (crd_state_id));
+    
 create table card_type (
     ct_id int not null auto_increment,
     ct_name varchar (60) not null,
@@ -138,4 +145,8 @@ alter table game_field_column add constraint gfcol_fk_card
 
 alter table card add constraint card_fk_crd_type
             foreign key (crd_type_id) references card_type(ct_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+alter table card add constraint card_fk_card_state
+            foreign key (crd_state_id) references card_state(crd_state_id) 
 			ON DELETE NO ACTION ON UPDATE NO ACTION;
