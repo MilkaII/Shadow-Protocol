@@ -1,6 +1,6 @@
 
 async function refresh() {
-    if (GameInfo.game.player.state == "Waiting") { 
+    if (GameInfo.game.player.state == "Waiting" || GameInfo.game.player.state == "Choose Deck" || GameInfo.game.player.state == "Ready") { 
         // Every time we are waiting
         await  getGameInfo();       
         if (GameInfo.game.player.state != "Waiting") {
@@ -26,11 +26,25 @@ async function setup() {
     setInterval(refresh,1000);
 
     //buttons (create a separated function if they are many)
+    // end turn button
     GameInfo.endturnButton = createButton('End Turn');
     GameInfo.endturnButton.parent('game');
     GameInfo.endturnButton.position(GameInfo.width-150,GameInfo.height-50);
     GameInfo.endturnButton.mousePressed(endturnAction);
     GameInfo.endturnButton.addClass('game')
+    
+    //Choose deck 1 button
+    GameInfo.choosedeck1button = createButton('Deck 1');
+    GameInfo.choosedeck1button.parent('game');
+    GameInfo.choosedeck1button.position(GameInfo.width-700,GameInfo.height-300);
+    GameInfo.choosedeck1button.mousePressed(ChooseDeck1Action);
+    GameInfo.choosedeck1button.addClass('game')
+    //Choose deck 2 button
+    GameInfo.choosedeck2button = createButton('Deck 2');
+    GameInfo.choosedeck2button.parent('game');
+    GameInfo.choosedeck2button.position(GameInfo.width-600,GameInfo.height-300);
+    GameInfo.choosedeck2button.mousePressed(ChooseDeck2Action);
+    GameInfo.choosedeck2button.addClass('game')
 
 
     GameInfo.prepareUI();

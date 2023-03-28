@@ -58,9 +58,10 @@ create table card (
     crd_name varchar(50) not null,
     crd_gang varchar(50) not null,
     crd_type_id int not null,
-    crd_state_id int not null default 1,
+    crd_state_id int not null default 1, # see other way to do it
     primary key (crd_id));
 
+# see other way to do it
 create table card_state (
     crd_state_id int not null auto_increment,
     crd_state varchar (60) not null,

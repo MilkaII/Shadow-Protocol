@@ -12,6 +12,7 @@ insert into user_game_state (ugst_state) values ('Playing');
 insert into user_game_state (ugst_state) values ('Score');
 insert into user_game_state (ugst_state) values ('End');
 insert into user_game_state (ugst_state) values ('Choose Deck');
+insert into user_game_state (ugst_state) values ('Ready');
 
 # Possible end game states
 insert into scoreboard_state (sbs_state) values ('Tied');

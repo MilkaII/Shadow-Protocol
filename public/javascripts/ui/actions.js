@@ -25,6 +25,29 @@ async function endturnAction() {
     } else alert("Something went wrong when ending the turn.")
 }
 
+async function ChooseDeck1Action() {
+
+    if (confirm(`Do you want to choose the deck 1 ?`)) {
+        let result = await requestChooseDeck(1);
+        if (result.successful) {
+            await  getGameInfo();
+            GameInfo.prepareUI();
+        } else alert("Something went wrong choosing the deck.")
+    }
+    
+}
+async function ChooseDeck2Action() {
+
+    if (confirm(`Do you want to choose the deck 2 ?`)) {
+        let result = await requestChooseDeck(2);
+        if (result.successful) {
+            await  getGameInfo();
+            GameInfo.prepareUI();
+        } else alert("Something went wrong choosing the deck.")
+    }
+    
+}
+
 async function closeScore() {
     let result = await requestCloseScore();
     if (result.successful) {

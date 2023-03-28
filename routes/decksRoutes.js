@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 
 router.get('/auth', auth.verifyAuth, async function (req, res, next) {
     try {
-        console.log("Get decks of the authenticated user");
+        console.log("Get decks");
         let result = await Deck.getDecks();
         res.status(result.status).send(result.result);
     } catch (err) {
