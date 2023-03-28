@@ -16,6 +16,8 @@ class GameInfo  {
     static scoreBoard;
     static scoreWindow;
 
+    static playercards;
+
     // buttons
     static endturnButton;
     static choosedeck1button;

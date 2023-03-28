@@ -39,6 +39,21 @@ class Deck {
             return { status: 500, result: err };
         }
     }
+
+    static async getDeckchoosen(game) {
+        try {
+            let [dbDecks] = await pool.query('select * from deck, card, card_type, user_game where ug_user_id = ? and deck_crd_id = crd_id and crd_type_id = ct_id and deck_id = ug_deck_id', [game.player.id]);
+            let decks = [];
+            for(let dbDeck of dbDecks) {
+                let cards = new Deck(dbDeck.deck_id, new Card(dbDeck.crd_id, dbDeck.crd_cost, dbDeck.crd_damage, dbDeck.crd_health, dbDeck.crd_name, dbDeck.crd_gang, new CardType(dbDeck.ct_id,dbDeck.ct_name)));
+                decks.push(cards);
+            }
+            return { status: 200, result: decks };
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
 }
 
 module.exports = Deck;

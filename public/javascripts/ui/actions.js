@@ -16,6 +16,16 @@ async function getGameInfo() {
     }
 }
 
+async function getDecksInfo() {
+    let result = await requestDecks();
+    if (!result.successful) {
+        alert("Something is wrong with the game please login again!");
+        window.location.pathname = "index.html";
+    } else {
+        GameInfo.playerCards = new Deck("Your cards", GameInfo.matchDecks.mycards, 30, 300, playCard(), GameInfo.images.card);
+    }
+}
+
 
 async function endturnAction() {
     let result = await requestEndTurn();
