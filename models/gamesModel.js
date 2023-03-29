@@ -69,7 +69,7 @@ class Game {
                     inner join user_game on gm_id = ug_game_id 
                     inner join user_game_state on ug_state_id = ugst_id
                     inner join game_state on gm_state_id = gst_id
-                    where ug_user_id=? and (gst_state IN ('Waiting','Started') 
+                    where ug_user_id=? and (gst_state IN ('Waiting','Started','Choose Deck','Ready') 
                     or (gst_state = 'Finished' and ugst_state = 'Score')) `, [id]);
             if (dbGames.length==0)
                 return {status:200, result:false};

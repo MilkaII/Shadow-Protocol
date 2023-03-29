@@ -27,7 +27,7 @@ class Play {
             await pool.query(`Update user_game set ug_state_id=?,ug_order=? where ug_id = ?`, [5, 2, game.opponents[0].id]);
 
             // Changing the game state to start
-            await pool.query(`Update game set gm_state_id=? where gm_id = ?`, [2, game.id]);
+            await pool.query(`Update game set gm_state_id=? where gm_id = ?`, [5, game.id]);
 
         } catch (err) {
             console.log(err);
@@ -47,6 +47,7 @@ class Play {
                 // Player that start changes to the state Playing and order 1 
                 await pool.query(`Update user_game set ug_state_id=? where ug_id = ?`, [2, p1Id]);
                 await pool.query(`Update user_game set ug_state_id=? where ug_id = ?`, [1, p2Id]);
+                await pool.query(`Update game set gm_state_id=? where gm_id = ?`, [2, game.id]);
             }
 
             return { status: 200, result: { msg: "You choose the deck: " + deckid} };
