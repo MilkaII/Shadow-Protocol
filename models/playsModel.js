@@ -1,5 +1,6 @@
 const pool = require("../config/database");
 const Deck = require("./decksModel");
+const Settings = require("./gameSettings");
 
 // auxiliary function to check if the game ended 
 async function checkEndGame(game) {
@@ -29,6 +30,7 @@ class Play {
             // Changing the game state to start
             await pool.query(`Update game set gm_state_id=? where gm_id = ?`, [5, game.id]);
 
+
         } catch (err) {
             console.log(err);
             return { status: 500, result: err };
@@ -48,6 +50,9 @@ class Play {
                 await pool.query(`Update user_game set ug_state_id=? where ug_id = ?`, [2, p1Id]);
                 await pool.query(`Update user_game set ug_state_id=? where ug_id = ?`, [1, p2Id]);
                 await pool.query(`Update game set gm_state_id=? where gm_id = ?`, [2, game.id]);
+
+                await Deck.genPlayerHand(game.player.id);
+                await Deck.genPlayerHand(game.opponents[0].id);
             }
 
             return { status: 200, result: { msg: "You choose the deck: " + deckid} };
@@ -74,6 +79,16 @@ class Play {
             // Change opponent state to playing (2)
             await pool.query(`Update user_game set ug_state_id=? where ug_id = ?`,
                 [2, game.opponents[0].id]);
+
+
+            let [nCards] = await pool.query(`Select ugc_crd_id from user_game_card where ugc_user_game_id = ? and crd_state_id = 2`,[game.player.id]);
+            let count = 0;
+            for (let nCard of nCards) {
+                count = count + 1;
+            }
+            if(count < Settings.MaxCards){
+                await Deck.addCardToHand(game.player.id);
+            }
 
             // Both players played
             if (game.player.order == 2) {

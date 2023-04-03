@@ -1,6 +1,6 @@
 class Card {
-  static width = 210;//210
-  static height = 315;//315
+  static width = 120;//210
+  static height = 190;//315
   constructor(card, x, y, img) {
     this.card = card;
     this.x = x;
@@ -14,7 +14,7 @@ class Card {
     textAlign(CENTER, CENTER);
     fill(255);
     textStyle(BOLD);
-    textSize(18);
+    textSize(15);
     stroke(0);
     strokeWeight(2);
     text(
@@ -35,13 +35,13 @@ class Card {
     strokeWeight(1);
     noStroke();
     fill(0);
-    textSize(16);
+    textSize(13);
     text(
       this.card.deck_crd_id.crd_name,
       this.x + Card.width * 0.5,
       this.y + Card.height * 0.63
     );
-    textSize(12);
+    textSize(10);
     textAlign(CENTER, TOP);
     text(
       this.card.deck_crd_id.crd_gang,
@@ -52,14 +52,14 @@ class Card {
     )
     text(
       "Health",
-      this.x + Card.width * 0.4,
+      this.x + Card.width * 0.39,
       this.y + Card.height * 0.9,
       Card.width * 0.8,
       Card.height * 0.1
     )
     text(
       "Damage",
-      this.x + Card.width * -0.2,
+      this.x + Card.width * -0.19,
       this.y + Card.height * 0.9,
       Card.width * 0.8,
       Card.height * 0.1
@@ -90,8 +90,7 @@ class Deck {
   static titleHeight = 50;
   static nCards = 3;
 
-  constructor(title, cardsInfo, x, y, clickAction, cardImg) {
-    this.title = title;
+  constructor(cardsInfo, x, y, clickAction, cardImg) {
     this.x = x;
     this.y = y;
     this.width = Card.width * Deck.nCards;
@@ -121,7 +120,7 @@ class Deck {
     noStroke();
     textSize(28);
     textAlign(CENTER, CENTER);
-    text(this.title, this.x, this.y, this.width, Deck.titleHeight);
+    //text(this.title, this.x, this.y, this.width, Deck.titleHeight);
     for (let card of this.cards) {
       card.draw();
     }

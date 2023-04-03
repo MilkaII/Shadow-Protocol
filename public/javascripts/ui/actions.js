@@ -32,10 +32,9 @@ async function getDecksInfo() {
     if (GameInfo.playerDeck) GameInfo.playerDeck.update(GameInfo.matchdeck);
     else
       GameInfo.playerDeck = new Deck(
-        "Your cards",
         GameInfo.matchdeck,
-        30,
-        300,
+        400,
+        500,
         null,
         GameInfo.images.card
       );
