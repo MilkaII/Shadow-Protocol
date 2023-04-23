@@ -122,7 +122,6 @@ class Deck {
 
   update(cardsInfo) {
     this.cards = this.createCards(cardsInfo);
-    
   }
 
   updateDrag() {
