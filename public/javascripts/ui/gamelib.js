@@ -5,7 +5,7 @@ async function refresh() {
     GameInfo.game.player.state == "Ready"
   ) {
     // Every time we are waiting
-    await getGameInfo();  
+    await getGameInfo();
     await getBoardInfo();
     await getDecksInfo();
   
@@ -31,6 +31,7 @@ async function setup() {
 
   await getGameInfo();
   await getBoardInfo();
+  await getDecksInfo();
   setInterval(refresh, 1000);
 
   //buttons (create a separated function if they are many)
@@ -60,7 +61,7 @@ async function setup() {
   GameInfo.choosedeck2button.mousePressed(ChooseDeck2Action);
   GameInfo.choosedeck2button.addClass("game");
 
-  await getDecksInfo();
+  
 
   GameInfo.prepareUI();
 

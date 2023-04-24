@@ -1,7 +1,8 @@
 const pool = require("../config/database");
 const Settings = require("./gameSettings");
+const EndGame = require("./endgameModel");
 const Board = require("./boardModel");
-const Play = require("./playsModel");
+
 
 function fromDBCardToCardGame(dbCardGame) {
   return new CardGame(
@@ -134,9 +135,9 @@ class CardGame {
     this.ugc_crd_cost = ugc_crd_cost;
     this.ugc_crd_health = ugc_crd_health;
     this.ugc_crd_damage = ugc_crd_damage;
-    (this.ugc_crd_name = ugc_crd_name),
-      (this.ugc_crd_gang = ugc_crd_gang),
-      (this.ugc_crd_type_id = ugc_crd_type_id);
+    this.ugc_crd_name = ugc_crd_name,
+    this.ugc_crd_gang = ugc_crd_gang,
+    this.ugc_crd_type_id = ugc_crd_type_id;
     this.ugc_infield = ugc_infield;
     this.crd_state_id = crd_state_id;
   }
@@ -363,10 +364,11 @@ class Deck {
                 "update user_game_card set crd_state_id = 4, ugc_crd_health = 0 where ugc_id = ?",
                 [cardopp.ugc_id]
               );
-              //await Play.endGame(game);
+              return await EndGame.endGame(game);
+              /*
+              await pool.query('update user_game set ug_state_id = 4 where ug_user_id = ?', [game.opponents[0].id]);
               return { status: 200, result: { msg: "You won! Opponent's chief card died." } };
-              //await pool.query('update user_game set ug_state_id = 4 where ug_user_id = ?', [game.opponents[0].id]);
-              //return { status: 200, result: { msg: "You won! Opponent's chief card died." } }; // colocar no playsmodels para conseguir terminar o jogo
+              */
             } else {
               await pool.query(
                 "update user_game_card set ugc_crd_health = ? where ugc_id = ?",
@@ -380,7 +382,7 @@ class Deck {
           }
         }else{
           cardopp.ugc_crd_health -= cardplayer.ugc_crd_damage;
-          if (cardopp.ugc_crd_health < 0) {
+          if (cardopp.ugc_crd_health <= 0) {
             //cheif damage
             chiefCard.ugc_crd_health -= Math.abs(cardopp.ugc_crd_health);
 
@@ -389,10 +391,9 @@ class Deck {
                 "update user_game_card set crd_state_id = 4, ugc_crd_health = 0 where ugc_id = ?",
                 [chiefCard.ugc_id]
               );
-              //await Play.endGame(game);
-              return { status: 200, result: { msg: "You won! Opponent's chief card died." } };
-              //await pool.query('update user_game set ug_state_id = 4 where ug_user_id = ?', [game.opponents[0].id]);
-              // colocar no playsmodels para conseguir terminar o jogo
+              return await EndGame.endGame(game);
+              /*await pool.query('update user_game set ug_state_id = 4 where ug_user_id = ?', [game.opponents[0].id]);
+              return { status: 200, result: { msg: "You won! Opponent's chief card died." } };*/
             } else {
               await pool.query(
                 "update user_game_card set ugc_crd_health = ? where ugc_id = ?",

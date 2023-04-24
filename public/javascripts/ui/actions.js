@@ -127,7 +127,7 @@ async function playCard(card, position) {
     await getGameInfo();
     await getBoardInfo();
     await getDecksInfo();
-    alert("Card Played!");
+    //alert("Card Played!");
   }
   //}
 }

@@ -40,7 +40,7 @@ create table scoreboard (
     sb_id int not null auto_increment,
     sb_user_game_id int not null,
     sb_state_id int not null,
-    sb_points int not null,
+    /*sb_points int not null,*/
     primary key (sb_id));
 
  create table scoreboard_state (
