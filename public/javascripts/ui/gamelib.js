@@ -7,6 +7,7 @@ async function refresh() {
     // Every time we are waiting
     await getGameInfo();
     await getBoardInfo();
+    await getBenchInfo();
     await getDecksInfo();
   
 
@@ -27,10 +28,14 @@ function preload() {
 async function setup() {
   let canvas = createCanvas(GameInfo.width, GameInfo.height);
   canvas.parent("game");
+
+  imageMode(CENTER);
+  angleMode(DEGREES);
   // preload  images
 
   await getGameInfo();
   await getBoardInfo();
+  await getBenchInfo();
   await getDecksInfo();
   setInterval(refresh, 1000);
 
@@ -82,6 +87,8 @@ function draw() {
     GameInfo.playerDeck.updateDrag();
     GameInfo.scoreBoard.draw();
     GameInfo.board.draw();
+    GameInfo.bench.draw();
+    GameInfo.bench.updateDrag();
   }
 }
 
@@ -90,16 +97,23 @@ async function mouseClicked() {
       GameInfo.playerDeck.click();
   }*/
   GameInfo.board.click();
+  //GameInfo.bench.click();
 }
 
 async function mousePressed() {
   if ( GameInfo.playerDeck) {
     GameInfo.playerDeck.press();
   }
+  if (GameInfo.bench) {
+    GameInfo.bench.press();
+  }
 }
 
 async function mouseReleased() {
-  if ( GameInfo.playerDeck) {
+  if (GameInfo.playerDeck) {
     GameInfo.playerDeck.release();
+  }
+  if (GameInfo.bench) {
+    GameInfo.bench.release();
   }
 }  

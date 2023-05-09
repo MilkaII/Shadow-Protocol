@@ -25,7 +25,8 @@ insert into card_type (ct_name) values ('Chief'),('Member'),('High Ranking Membe
 
 insert into card_state (crd_state) values ('In deck');
 insert into card_state (crd_state) values ('In hand');
-insert into card_state (crd_state) values ('In field');
+insert into card_state (crd_state) values ('In Bench');
+insert into card_state (crd_state) values ('In Board');
 insert into card_state (crd_state) values ('Killed');
 
 insert into card (crd_id, crd_cost, crd_damage, crd_health, crd_name, crd_gang, crd_type_id) values 
@@ -43,5 +44,6 @@ insert into card (crd_id, crd_cost, crd_damage, crd_health, crd_name, crd_gang, 
 insert into deck (deck_id, deck_crd_id, deck_crd_qty) values (1, 1, 1), (1, 2, 2), (1, 3, 3), (1, 4, 2), (1, 5, 2), (2, 6, 1), (2, 7, 2), (2, 8, 3), (2, 9, 2), (2, 10, 2);
 
 insert into game_board (gb_pos) values (1),(2),(3),(4),(5);
+insert into game_bench (gben_pos) values (1),(2),(3),(4),(5);
 
 INSERT INTO user VALUES (1,'me','$2b$10$Wemfac2wY/7RSCdKxuYUL.GV2clfhXC66OL76uCpDFUmpYZ/bGZtW','48MnTVJ6sKIvanVHbP5Vx5rysbYrVN4EbYmk4D8xESdfm1hx8jDfNFZGNw9OZs'),(2,'me2','$2b$10$6j2xIDnnxv.TLfBSstbbO.qE7wFTf5envx/uijiFjCP3slsy7EE4K','dQ7NrsbPsuF81xFGNioR1K0tiYkjtxOhemcgMhuFIS68VrFUC9gggm3JCgzkqe');

@@ -26,18 +26,18 @@ class Card {
     strokeWeight(2);
     text(
       this.card.ugc_crd_cost,
-      this.x + Card.width * 0.905,
-      this.y + Card.height * 0.065
+      this.x + 49,
+      this.y - 82
     );
     text(
       this.card.ugc_crd_damage,
-      this.x + Card.width * 0.2,
-      this.y + Card.height * 0.85
+      this.x - 35,
+      this.y + 70
     );
     text(
       this.card.ugc_crd_health,
-      this.x + Card.width * 0.8,
-      this.y + Card.height * 0.85
+      this.x + 35,
+      this.y + 70
     );
     strokeWeight(1);
     noStroke();
@@ -45,31 +45,25 @@ class Card {
     textSize(13);
     text(
       this.card.ugc_crd_name,
-      this.x + Card.width * 0.5,
-      this.y + Card.height * 0.63
+      this.x,
+      this.y + 25
     );
     textSize(10);
     textAlign(CENTER, TOP);
     text(
       this.card.ugc_crd_gang,
-      this.x + Card.width * 0.1,
-      this.y + Card.height * 0.68,
-      Card.width * 0.8,
-      Card.height * 0.1
+      this.x,
+      this.y + 35
     );
     text(
       "Health",
-      this.x + Card.width * 0.39,
-      this.y + Card.height * 0.9,
-      Card.width * 0.8,
-      Card.height * 0.1
+      this.x + 35,
+      this.y + 75
     );
     text(
       "Damage",
-      this.x + Card.width * -0.19,
-      this.y + Card.height * 0.9,
-      Card.width * 0.8,
-      Card.height * 0.1
+      this.x - 35,
+      this.y + 75
     );
     textStyle(NORMAL);
     noTint();
@@ -143,12 +137,13 @@ class Deck {
     }
   }
 
+  //se houver problemas com o dragndrop ver isto aqui
   press() {
     if (!this.draggable) {
       return;
     }
     for (let card of this.cards) {
-      if (this.draggable && mouseX > card.x && mouseX < card.x + Card.width && mouseY > card.y && mouseY < card.y + Card.height) {
+      if (this.draggable && mouseX > card.x - Card.width / 2 && mouseX < card.x + Card.width / 2 && mouseY > card.y - Card.height / 2 && mouseY < card.y + Card.height / 2) {
         card.offsetX = card.x - mouseX;
         card.offsetY = card.y - mouseY;
         card.dragx = mouseX + card.offsetX;

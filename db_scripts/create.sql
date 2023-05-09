@@ -95,7 +95,7 @@ create table user_game_card (
     crd_state_id int not null, # see other way to do it
     primary key (ugc_id));
 
-#Position of the cards in the field
+#Position of the cards in the Board
 create table game_board (
     gb_id int not null auto_increment,
     gb_pos int not null,
@@ -107,6 +107,19 @@ create table user_game_board (
     ugb_crd_id int not null,
     ugb_pos_id int not null,
     primary key (ugb_id));
+
+#Position of the cards in the Bench
+create table game_bench (
+    gben_id int not null auto_increment,
+    gben_pos int not null,
+    primary key (gben_id));
+
+create table user_game_bench (
+    ugben_id int not null auto_increment,
+    ugben_ug_id int not null,
+    ugben_crd_id int not null,
+    ugben_pos_id int not null,
+    primary key (ugben_id));
 
 # Foreign Keys
 
@@ -154,6 +167,14 @@ alter table user_game_board add constraint ugc_fk_ug
             
 alter table user_game_board add constraint ugc_fk_col
             foreign key (ugb_pos_id) references game_board(gb_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+alter table user_game_bench add constraint ugben_fk_ug
+            foreign key (ugben_ug_id) references user_game(ug_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+alter table user_game_bench add constraint ugben_fk_col
+            foreign key (ugben_pos_id) references game_bench(gben_id) 
 			ON DELETE NO ACTION ON UPDATE NO ACTION;
             
 alter table card add constraint card_fk_crd_type

@@ -91,11 +91,11 @@ class Board {
         );
         strokeWeight(0);
         if (column.posPlayer) {
-          let cardX = this.x + column.position * this.colsize + 5;
-          let cardY = this.y + Board.headery + this.rowsize + (this.rowsize - 180) / 2;
+          let cardX = this.x + column.position * this.colsize + 65;
+          let cardY = this.y + Board.headery + this.rowsize + (this.rowsize + 10) / 2;
           for (let card of GameInfo.cardsInBoard) {
             if (card.ugb_crd_id == column.posPlayer) {
-              if (card.crd_state_id == 4) tint(255, 0, 0, 255);
+              if (card.crd_state_id == 5) tint(255, 0, 0, 255);
 
               image(
                 this.cardimg,
@@ -111,36 +111,30 @@ class Board {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.ugc_crd_cost, cardX + 120 * 0.905, cardY + 180 * 0.065);
-              text(card.ugc_crd_damage, cardX + 120 * 0.2, cardY + 180 * 0.85);
-              text(card.ugc_crd_health, cardX + 120 * 0.8, cardY + 180 * 0.85);
+              text(card.ugc_crd_cost, cardX + 48, cardY - 79);
+              text(card.ugc_crd_damage, cardX - 35, cardY + 60);
+              text(card.ugc_crd_health, cardX + 35, cardY + 60);
               strokeWeight(1);
               noStroke();
               fill(0);
               textSize(13);
-              text(card.ugc_crd_name, cardX + 120 * 0.5, cardY + 180 * 0.63);
+              text(card.ugc_crd_name, cardX, cardY + 25);
               textSize(10);
               textAlign(CENTER, TOP);
               text(
                 card.ugc_crd_gang,
-                cardX + 120 * 0.1,
-                cardY + 180 * 0.68,
-                120 * 0.8,
-                180 * 0.1
+                cardX,
+                cardY + 35
               );
               text(
                 "Health",
-                cardX + 120 * 0.39,
-                cardY + 180 * 0.9,
-                120 * 0.8,
-                180 * 0.1
+                cardX + 35,
+                cardY + 70
               );
               text(
                 "Damage",
-                cardX + 120 * -0.19,
-                cardY + 180 * 0.9,
-                120 * 0.8,
-                180 * 0.1
+                cardX - 35,
+                cardY + 70
               );
               textStyle(NORMAL);
               noTint();
@@ -148,11 +142,11 @@ class Board {
           }
         }
         if (column.posOpponent) {
-          let cardX = this.x + column.position * this.colsize + 5;
-          let cardY = this.y + Board.headery + (this.rowsize - this.cardsize - 170) / 2;
+          let cardX = this.x + column.position * this.colsize + 65;
+          let cardY = this.y + Board.headery + (this.rowsize - this.cardsize + 30) / 2;
           for (let card of GameInfo.cardsInBoard) {
             if (card.ugb_crd_id == column.posOpponent) {
-              if (card.crd_state_id == 4) tint(255, 0, 0, 255);
+              if (card.crd_state_id == 5) tint(255, 0, 0, 255);
 
               image(
                 this.cardimg,
@@ -168,36 +162,30 @@ class Board {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.ugc_crd_cost, cardX + 120 * 0.905, cardY + 180 * 0.065);
-              text(card.ugc_crd_damage, cardX + 120 * 0.2, cardY + 180 * 0.85);
-              text(card.ugc_crd_health, cardX + 120 * 0.8, cardY + 180 * 0.85);
+              text(card.ugc_crd_cost, cardX + 48, cardY - 79);
+              text(card.ugc_crd_damage, cardX - 35, cardY + 60);
+              text(card.ugc_crd_health, cardX + 35, cardY + 60);
               strokeWeight(1);
               noStroke();
               fill(0);
               textSize(13);
-              text(card.ugc_crd_name, cardX + 120 * 0.5, cardY + 180 * 0.63);
+              text(card.ugc_crd_name, cardX, cardY + 25);
               textSize(10);
               textAlign(CENTER, TOP);
               text(
                 card.ugc_crd_gang,
-                cardX + 120 * 0.1,
-                cardY + 180 * 0.68,
-                120 * 0.8,
-                180 * 0.1
+                cardX,
+                cardY + 35
               );
               text(
                 "Health",
-                cardX + 120 * 0.39,
-                cardY + 180 * 0.9,
-                120 * 0.8,
-                180 * 0.1
+                cardX + 35,
+                cardY + 70
               );
               text(
                 "Damage",
-                cardX + 120 * -0.19,
-                cardY + 180 * 0.9,
-                120 * 0.8,
-                180 * 0.1
+                cardX - 35,
+                cardY + 70
               );
               textStyle(NORMAL);
               noTint();
@@ -215,11 +203,11 @@ class Board {
         );
         strokeWeight(0);
         if (column.posPlayer) {
-          let cardX = this.x + column.position * this.colsize + 80;
-          let cardY = this.y + Board.headery + this.rowsize + (this.rowsize - 180) / 2;
+          let cardX = this.x + column.position * this.colsize + 140;
+          let cardY = this.y + Board.headery + this.rowsize + (this.rowsize + 10) / 2;
           for (let card of GameInfo.cardsInBoard) {
             if (card.ugb_crd_id == column.posPlayer) {
-              if (card.crd_state_id == 4) tint(255, 0, 0, 255);
+              if (card.crd_state_id == 5) tint(255, 0, 0, 255);
 
               image(
                 this.cardimg,
@@ -235,36 +223,30 @@ class Board {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.ugc_crd_cost, cardX + 120 * 0.905, cardY + 180 * 0.065);
-              text(card.ugc_crd_damage, cardX + 120 * 0.2, cardY + 180 * 0.85);
-              text(card.ugc_crd_health, cardX + 120 * 0.8, cardY + 180 * 0.85);
+              text(card.ugc_crd_cost, cardX + 48, cardY - 79);
+              text(card.ugc_crd_damage, cardX - 35, cardY + 60);
+              text(card.ugc_crd_health, cardX + 35, cardY + 60);
               strokeWeight(1);
               noStroke();
               fill(0);
               textSize(13);
-              text(card.ugc_crd_name, cardX + 120 * 0.5, cardY + 180 * 0.63);
+              text(card.ugc_crd_name, cardX, cardY + 25);
               textSize(10);
               textAlign(CENTER, TOP);
               text(
                 card.ugc_crd_gang,
-                cardX + 120 * 0.1,
-                cardY + 180 * 0.68,
-                120 * 0.8,
-                180 * 0.1
+                cardX,
+                cardY + 35
               );
               text(
                 "Health",
-                cardX + 120 * 0.39,
-                cardY + 180 * 0.9,
-                120 * 0.8,
-                180 * 0.1
+                cardX + 35,
+                cardY + 70
               );
               text(
                 "Damage",
-                cardX + 120 * -0.19,
-                cardY + 180 * 0.9,
-                120 * 0.8,
-                180 * 0.1
+                cardX - 35,
+                cardY + 70
               );
               textStyle(NORMAL);
               noTint();
@@ -272,11 +254,11 @@ class Board {
           }
         }
         if (column.posOpponent) {
-          let cardX = this.x + column.position * this.colsize + 80;
-          let cardY = this.y + Board.headery + (this.rowsize - this.cardsize - 170) / 2;
+          let cardX = this.x + column.position * this.colsize + 140;
+          let cardY = this.y + Board.headery + (this.rowsize - this.cardsize + 30) / 2;
           for (let card of GameInfo.cardsInBoard) {
             if (card.ugb_crd_id == column.posOpponent) {
-              if (card.crd_state_id == 4) tint(255, 0, 0, 255);
+              if (card.crd_state_id == 5) tint(255, 0, 0, 255);
 
               image(
                 this.cardimg,
@@ -292,39 +274,33 @@ class Board {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.ugc_crd_cost, cardX + 120 * 0.905, cardY + 180 * 0.065);
-              text(card.ugc_crd_damage, cardX + 120 * 0.2, cardY + 180 * 0.85);
-              text(card.ugc_crd_health, cardX + 120 * 0.8, cardY + 180 * 0.85);
+              text(card.ugc_crd_cost, cardX + 48, cardY - 79);
+              text(card.ugc_crd_damage, cardX - 35, cardY + 60);
+              text(card.ugc_crd_health, cardX + 35, cardY + 60);
               strokeWeight(1);
               noStroke();
               fill(0);
               textSize(13);
-              text(card.ugc_crd_name, cardX + 120 * 0.5, cardY + 180 * 0.63);
+              text(card.ugc_crd_name, cardX, cardY + 25);
               textSize(10);
               textAlign(CENTER, TOP);
               text(
                 card.ugc_crd_gang,
-                cardX + 120 * 0.1,
-                cardY + 180 * 0.68,
-                120 * 0.8,
-                180 * 0.1
+                cardX,
+                cardY + 35
               );
               text(
                 "Health",
-                cardX + 120 * 0.39,
-                cardY + 180 * 0.9,
-                120 * 0.8,
-                180 * 0.1
+                cardX + 35,
+                cardY + 70
               );
               text(
                 "Damage",
-                cardX + 120 * -0.19,
-                cardY + 180 * 0.9,
-                120 * 0.8,
-                180 * 0.1
+                cardX - 35,
+                cardY + 70
               );
               textStyle(NORMAL);
-              noTint();
+              noTint(); 
             }
           }
         }
