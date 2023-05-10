@@ -138,7 +138,7 @@ class Bench {
                 cardX,
                 cardY,
                 120, //this.cardsize,
-                180 //this.cardsize
+                190 //this.cardsize
               );
               noTint();
               textAlign(CENTER, CENTER);
@@ -147,31 +147,17 @@ class Bench {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.card.ugc_crd_cost, cardX + 48, cardY - 79);
-              text(card.card.ugc_crd_damage, cardX - 35, cardY + 60);
-              text(card.card.ugc_crd_health, cardX + 35, cardY + 60);
+              text(card.card.ugc_crd_cost, cardX - 49, cardY - 80);
+              text(card.card.ugc_crd_damage, cardX - 49, cardY + 80);
+              text(card.card.ugc_crd_health, cardX + 49, cardY + 80);
               strokeWeight(1);
               noStroke();
-              fill(0);
               textSize(13);
-              text(card.card.ugc_crd_name, cardX, cardY + 25);
+              text(card.card.ugc_crd_name, cardX, cardY + 10);
               textSize(10);
               textAlign(CENTER, TOP);
-              text(
-                card.card.ugc_crd_gang,
-                cardX,
-                cardY + 35
-              );
-              text(
-                "Health",
-                cardX + 35,
-                cardY + 70
-              );
-              text(
-                "Damage",
-                cardX - 35,
-                cardY + 70
-              );
+              text(card.card.ugc_crd_gang, cardX, cardY + 20);
+              fill(0);
               textStyle(NORMAL);
               noTint();
           }
@@ -182,17 +168,13 @@ class Bench {
         let cardY = this.y + Bench.headery + (this.rowsize - this.cardsize - 250) / 2;
         for (let card of this.cards) {
           if (card.card.ugben_crd_id == column.posOpponent) {
-            push()
-            translate(cardX, cardY);
-            rotate(180);
             image(
               this.cardimg,
-              0,
-              0,
+              cardX,
+              cardY,
               120, //this.cardsize,
-              180 //this.cardsize
+              190 //this.cardsize
             );
-            
             noTint();
             textAlign(CENTER, CENTER);
             fill(255);
@@ -200,34 +182,19 @@ class Bench {
             textSize(15);
             stroke(0);
             strokeWeight(2);
-            text(card.card.ugc_crd_cost, 0 + 48, 0 - 79);
-            text(card.card.ugc_crd_damage, 0 - 35, 0 + 60);
-            text(card.card.ugc_crd_health, 0 + 35, 0 + 60);
+            text(card.card.ugc_crd_cost, cardX - 49, cardY - 80);
+            text(card.card.ugc_crd_damage, cardX - 49, cardY + 80);
+            text(card.card.ugc_crd_health, cardX + 49, cardY + 80);
             strokeWeight(1);
             noStroke();
-            fill(0);
             textSize(13);
-            text(card.card.ugc_crd_name, 0, 0 + 25);
+            text(card.card.ugc_crd_name, cardX, cardY + 10);
             textSize(10);
             textAlign(CENTER, TOP);
-            text(
-              card.card.ugc_crd_gang,
-              0,
-              0 + 35
-            );
-            text(
-              "Health",
-              0 + 35,
-              0 + 70
-            );
-            text(
-              "Damage",
-              0 - 35,
-              0 + 70
-            );
+            text(card.card.ugc_crd_gang, cardX, cardY + 20);
+            fill(0);
             textStyle(NORMAL);
             noTint();
-            pop()
           }
         }
       }

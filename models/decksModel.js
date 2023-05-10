@@ -13,8 +13,11 @@ function fromDBCardToCardGame(dbCardGame) {
     dbCardGame.ugc_crd_cost,
     dbCardGame.ugc_crd_health,
     dbCardGame.ugc_crd_damage,
+    dbCardGame.ugc_crd_bonus,
     dbCardGame.ugc_crd_name,
     dbCardGame.ugc_crd_gang,
+    dbCardGame.ugc_crd_info,
+    dbCardGame.ugc_crd_hack_type_id,
     dbCardGame.ugc_crd_type_id,
     dbCardGame.ugc_infield,
     dbCardGame.crd_state_id
@@ -34,16 +37,22 @@ class Card {
     crd_cost,
     crd_damage,
     crd_health,
+    crd_bonus,
     crd_name,
     crd_gang,
+    crd_info,
+    crd_hack_type_id,
     crd_type_id
   ) {
     this.crd_id = crd_id;
     this.crd_cost = crd_cost;
     this.crd_damage = crd_damage;
     this.crd_health = crd_health;
+    this.crd_bonus = crd_bonus;
     this.crd_name = crd_name;
     this.crd_gang = crd_gang;
+    this.crd_info = crd_info;
+    this.crd_hack_type_id = crd_hack_type_id;
     this.crd_type_id = crd_type_id;
   }
 
@@ -62,8 +71,11 @@ class Card {
             playerdeck.crd_cost,
             playerdeck.crd_damage,
             playerdeck.crd_health,
+            playerdeck.crd_bonus,
             playerdeck.crd_name,
             playerdeck.crd_gang,
+            playerdeck.crd_info,
+            playerdeck.crd_hack_type_id,
             new CardType(playerdeck.ct_id, playerdeck.ct_name)
           ),
           playerdeck.deck_crd_qty
@@ -71,16 +83,19 @@ class Card {
 
         for (let i = 0; i < playerdeck.deck_crd_qty; i++) {
           let [result] = await pool.query(
-            `Insert into user_game_card (ugc_user_game_id,ugc_crd_id,ugc_crd_cost,ugc_crd_health,ugc_crd_damage,ugc_crd_name,ugc_crd_gang,ugc_crd_type_id,crd_state_id)
-                  values (?,?,?,?,?,?,?,?,1)`,
+            `Insert into user_game_card (ugc_user_game_id,ugc_crd_id,ugc_crd_cost,ugc_crd_health,ugc_crd_damage,ugc_crd_bonus,ugc_crd_name,ugc_crd_gang,ugc_crd_info,ugc_crd_hack_type_id,ugc_crd_type_id,crd_state_id)
+                  values (?,?,?,?,?,?,?,?,?,?,?,1)`,
             [
               playerId,
               cards.deck_crd_id.crd_id,
               cards.deck_crd_id.crd_cost,
               cards.deck_crd_id.crd_health,
               cards.deck_crd_id.crd_damage,
+              cards.deck_crd_id.crd_bonus,
               cards.deck_crd_id.crd_name,
               cards.deck_crd_id.crd_gang,
+              cards.deck_crd_id.crd_info,
+              cards.deck_crd_id.crd_hack_type_id,
               cards.deck_crd_id.crd_type_id.id,
             ]
           );
@@ -124,8 +139,11 @@ class CardGame {
     ugc_crd_cost,
     ugc_crd_health,
     ugc_crd_damage,
+    ugc_crd_bonus,
     ugc_crd_name,
     ugc_crd_gang,
+    ugc_crd_info,
+    ugc_crd_hack_type_id,
     ugc_crd_type_id,
     ugc_infield,
     crd_state_id
@@ -136,8 +154,11 @@ class CardGame {
     this.ugc_crd_cost = ugc_crd_cost;
     this.ugc_crd_health = ugc_crd_health;
     this.ugc_crd_damage = ugc_crd_damage;
+    this.ugc_crd_bonus = ugc_crd_bonus;
     this.ugc_crd_name = ugc_crd_name,
     this.ugc_crd_gang = ugc_crd_gang,
+    this.ugc_crd_info = ugc_crd_info;
+    this.ugc_crd_hack_type_id = ugc_crd_hack_type_id;
     this.ugc_crd_type_id = ugc_crd_type_id;
     this.ugc_infield = ugc_infield;
     this.crd_state_id = crd_state_id;
@@ -166,8 +187,11 @@ class Deck {
             dbDeck.crd_cost,
             dbDeck.crd_damage,
             dbDeck.crd_health,
+            dbDeck.crd_bonus,
             dbDeck.crd_name,
             dbDeck.crd_gang,
+            dbDeck.crd_info,
+            dbDeck.crd_hack_type_id,
             new CardType(dbDeck.ct_id, dbDeck.ct_name)
           ),
           dbDeck.deck_crd_qty
@@ -196,8 +220,11 @@ class Deck {
           dbDeck.ugc_crd_cost,
           dbDeck.ugc_crd_health,
           dbDeck.ugc_crd_damage,
+          dbDeck.ugc_crd_bonus,
           dbDeck.ugc_crd_name,
           dbDeck.ugc_crd_gang,
+          dbDeck.ugc_crd_info,
+          dbDeck.ugc_crd_hack_type_id,
           dbDeck.ugc_crd_type_id,
           dbDeck.ugc_infield,
           dbDeck.crd_state_id
@@ -339,38 +366,100 @@ class Deck {
 
       let { result } = await Board.getBoard(game);
       let columns = result;
+
       //Verify if position exists
-      if (!columns[column - 1]) {
-        return {
-          status: 400,
-          result: { msg: "Please choose a valid position to place the card" },
-        };
+      if(card.ugc_crd_type_id != 4){
+        if (!columns[column - 1]) {
+          return {
+            status: 400,
+            result: { msg: "Please choose a valid position to place the card" },
+          };
+        }
       }
+
       //Verify if selected position was already taken
-      if (columns[column - 1].posPlayer) {
-        return {
-          status: 400,
-          result: { msg: "You already placed a value at that position" },
-        };
+      if(card.ugc_crd_type_id != 4){
+        if (columns[column - 1].posPlayer) {
+          return {
+            status: 200,
+            result: { msg: "You already placed a value at that position" },
+          };
+        }
       }
 
       //remove from bench
-      await pool.query("delete from user_game_bench where ugben_crd_id = ?", [
-        cardid,
-      ]);
+      if(card.ugc_crd_type_id != 4){
+        await pool.query("delete from user_game_bench where ugben_crd_id = ?", [
+          cardid,
+        ]);
+      }
+
+      //hacks
+      if (card.ugc_crd_type_id == 4){
+        if (columns[column - 1].posPlayer) {
+          let activecard = columns[column - 1].posPlayer;
+          //let bonus;
+
+          let [dbCardActive] = await pool.query(
+            "select * from user_game_card where ugc_user_game_id = ? and crd_state_id = 4 and ugc_id = ?",
+            [game.player.id, activecard]
+          );
+
+          let cardactive = fromDBCardToCardGame(dbCardActive[0]);
+
+          if (card.ugc_crd_hack_type_id == 1){
+            cardactive.ugc_crd_health = cardactive.ugc_crd_health + card.ugc_crd_bonus;
+            await pool.query(
+              `update user_game_card set ugc_crd_health = ? where ugc_user_game_id = ? and ugc_id = ?`,
+              [cardactive.ugc_crd_health, game.player.id, cardactive.ugc_id]
+            );
+          }
+
+          if (card.ugc_crd_hack_type_id == 2){
+            cardactive.ugc_crd_damage = cardactive.ugc_crd_damage + card.ugc_crd_bonus;
+            await pool.query(
+              `update user_game_card set ugc_crd_damage = ? where ugc_user_game_id = ? and ugc_id = ?`,
+              [cardactive.ugc_crd_damage, game.player.id, cardactive.ugc_id]
+            );
+          }
+
+          await pool.query("delete from user_game_bench where ugben_crd_id = ?", [
+            cardid,
+          ]);
+
+          await pool.query(
+            `update user_game_card set crd_state_id = 5 where ugc_user_game_id = ? and ugc_id = ?`,
+            [game.player.id, cardid]
+          );
+
+          return { status: 200, result: { msg: "Hack used!" } };
+
+        }else{
+          return {
+            status: 200,
+            result: { msg: "You dont have any card in that position" },
+          };
+        }
+      }
+
       //Update Board
-      columns[column - 1].posPlayer = cardid;
-      await pool.query(
-        `Insert into user_game_board(ugb_ug_id,ugb_pos_id,ugb_crd_id) 
-                        values (?,?,?)`,
-        [game.player.id, column, cardid]
-      );
+      if(card.ugc_crd_type_id != 4){
+        columns[column - 1].posPlayer = cardid;
+        await pool.query(
+          `Insert into user_game_board(ugb_ug_id,ugb_pos_id,ugb_crd_id) 
+                          values (?,?,?)`,
+          [game.player.id, column, cardid]
+        );
+      }
 
       //Update card's state
-      await pool.query(
-        `update user_game_card set ugc_infield = true, crd_state_id = 4 where ugc_user_game_id = ? and ugc_id = ?`,
-        [game.player.id, cardid]
-      );
+      if(card.ugc_crd_type_id != 4){
+        await pool.query(
+          `update user_game_card set ugc_infield = true, crd_state_id = 4 where ugc_user_game_id = ? and ugc_id = ?`,
+          [game.player.id, cardid]
+        );
+      }
+      
       return { status: 200, result: { msg: "Card played!" } };
     } catch (err) {
       console.log(err);

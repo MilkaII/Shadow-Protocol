@@ -21,7 +21,9 @@ insert into scoreboard_state (sbs_state) values ('Tied');
 insert into scoreboard_state (sbs_state) values ('Lost');
 insert into scoreboard_state (sbs_state) values ('Won');
 
-insert into card_type (ct_name) values ('Chief'),('Member'),('High Ranking Member'), ('Hacks');
+insert into card_type (ct_name) values ('Chief'),('Member'),('High Ranking Member'),('Hacks');
+
+insert into card_hack_type (cht_name) values ('Give Health'),('Give Damage');
 
 insert into card_state (crd_state) values ('In deck');
 insert into card_state (crd_state) values ('In hand');
@@ -29,17 +31,17 @@ insert into card_state (crd_state) values ('In Bench');
 insert into card_state (crd_state) values ('In Board');
 insert into card_state (crd_state) values ('Killed');
 
-insert into card (crd_id, crd_cost, crd_damage, crd_health, crd_name, crd_gang, crd_type_id) values 
-   (1, 5, 5, 25, "Cipher","Neon Syndicate", 1),
-   (2, 2, 9, 6, "Armitager", "Neon Syndicate", 2),
-   (3, 2, 1, 12, "Gunnar","Neon Syndicate", 2),
-   (4, 2, 2, 1, "Rezin","Neon Syndicate", 2),
-   (5, 2, 3, 5, "Maxine","Neon Syndicate", 2),
-   (6, 5, 5, 25, "Makko","Data Devils", 1),
-   (7, 2, 9, 6, "Erythrina", "Data Devils", 2),
-   (8, 2, 1, 12, "Vyrva","Data Devils", 2),
-   (9, 2, 2, 1, "Dredd Officer","Data Devils", 2),
-   (10, 2, 3, 5, "Deckard","Data Devils", 2);
+insert into card (crd_id, crd_cost, crd_damage, crd_health, crd_bonus, crd_name, crd_gang, crd_info, crd_hack_type_id, crd_type_id) values 
+   (1, 5, 5, 25, null, "Cipher","Neon Syndicate", null, null, 1),
+   (2, 2, 9, 6, null, "Armitager", "Neon Syndicate", null, null, 3),
+   (3, 2, 1, 12, null, "Gunnar","Neon Syndicate", null, null, 2),
+   (4, 2, 2, 1, null, "Rezin","Neon Syndicate", null, null, 2),
+   (5, 2, 0, 0, 3, "Maxine","Neon Syndicate", "Give +3 damage to a unit", 2, 4),
+   (6, 5, 5, 25, null, "Makko","Data Devils", null, null, 1),
+   (7, 2, 9, 6, null, "Erythrina", "Data Devils", null, null, 3),
+   (8, 2, 1, 12, null, "Vyrva","Data Devils", null, null, 2),
+   (9, 2, 2, 1, null, "Dredd Officer","Data Devils", null, null, 2),
+   (10, 2, 0, 0, 3, "Deckard","Data Devils", "Give +3 Health to a unit", 1, 4);
    
 insert into deck (deck_id, deck_crd_id, deck_crd_qty) values (1, 1, 1), (1, 2, 2), (1, 3, 3), (1, 4, 2), (1, 5, 2), (2, 6, 1), (2, 7, 2), (2, 8, 3), (2, 9, 2), (2, 10, 2);
 

@@ -56,8 +56,11 @@ create table card (
     crd_cost int not null,
     crd_damage int not null,
     crd_health int not null,
+    crd_bonus int,
     crd_name varchar(50) not null,
     crd_gang varchar(50) not null,
+    crd_info varchar(50),
+    crd_hack_type_id int,
     crd_type_id int not null,
     primary key (crd_id));
 
@@ -71,6 +74,11 @@ create table card_type (
     ct_id int not null auto_increment,
     ct_name varchar (60) not null,
     primary key (ct_id));
+    
+create table card_hack_type (
+    cht_id int not null auto_increment,
+    cht_name varchar (60) not null,
+    primary key (cht_id));
 
 #all decks of the game created by us, not by the user
 create table deck(
@@ -80,7 +88,7 @@ create table deck(
     deck_crd_qty int not null,
     primary key (d_id));
 
-#Cards in the game (hand or field) 
+#Cards in the game 
 create table user_game_card (
     ugc_id int not null auto_increment,
     ugc_user_game_id int not null,
@@ -88,11 +96,14 @@ create table user_game_card (
     ugc_crd_cost int not null,
     ugc_crd_health int not null,
     ugc_crd_damage int not null,
+    ugc_crd_bonus int,
     ugc_crd_name varchar(50) not null,
     ugc_crd_gang varchar(50) not null,
+    ugc_crd_info varchar(50),
+    ugc_crd_hack_type_id int,
     ugc_crd_type_id int not null,
     ugc_infield boolean not null default false,
-    crd_state_id int not null, # see other way to do it
+    crd_state_id int not null,
     primary key (ugc_id));
 
 #Position of the cards in the Board
@@ -179,6 +190,10 @@ alter table user_game_bench add constraint ugben_fk_col
             
 alter table card add constraint card_fk_crd_type
             foreign key (crd_type_id) references card_type(ct_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+alter table card add constraint card_fk_crd_hack_type
+            foreign key (crd_hack_type_id) references card_hack_type(cht_id) 
 			ON DELETE NO ACTION ON UPDATE NO ACTION;
             
 alter table user_game_card add constraint card_fk_card_state

@@ -102,7 +102,7 @@ class Board {
                 cardX,
                 cardY,
                 120, //this.cardsize,
-                180 //this.cardsize
+                190 //this.cardsize
               );
               noTint();
               textAlign(CENTER, CENTER);
@@ -111,31 +111,17 @@ class Board {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.ugc_crd_cost, cardX + 48, cardY - 79);
-              text(card.ugc_crd_damage, cardX - 35, cardY + 60);
-              text(card.ugc_crd_health, cardX + 35, cardY + 60);
+              text(card.ugc_crd_cost, cardX - 49, cardY - 80);
+              text(card.ugc_crd_damage, cardX - 49, cardY + 80);
+              text(card.ugc_crd_health, cardX + 49, cardY + 80);
               strokeWeight(1);
               noStroke();
-              fill(0);
               textSize(13);
-              text(card.ugc_crd_name, cardX, cardY + 25);
+              text(card.ugc_crd_name, cardX, cardY + 10);
               textSize(10);
               textAlign(CENTER, TOP);
-              text(
-                card.ugc_crd_gang,
-                cardX,
-                cardY + 35
-              );
-              text(
-                "Health",
-                cardX + 35,
-                cardY + 70
-              );
-              text(
-                "Damage",
-                cardX - 35,
-                cardY + 70
-              );
+              text(card.ugc_crd_gang, cardX, cardY + 20);
+              fill(0);
               textStyle(NORMAL);
               noTint();
             }
@@ -153,7 +139,7 @@ class Board {
                 cardX,
                 cardY,
                 120, //this.cardsize,
-                180 //this.cardsize
+                190 //this.cardsize
               );
               noTint();
               textAlign(CENTER, CENTER);
@@ -162,31 +148,17 @@ class Board {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.ugc_crd_cost, cardX + 48, cardY - 79);
-              text(card.ugc_crd_damage, cardX - 35, cardY + 60);
-              text(card.ugc_crd_health, cardX + 35, cardY + 60);
+              text(card.ugc_crd_cost, cardX - 49, cardY - 80);
+              text(card.ugc_crd_damage, cardX - 49, cardY + 80);
+              text(card.ugc_crd_health, cardX + 49, cardY + 80);
               strokeWeight(1);
               noStroke();
-              fill(0);
               textSize(13);
-              text(card.ugc_crd_name, cardX, cardY + 25);
+              text(card.ugc_crd_name, cardX, cardY + 10);
               textSize(10);
               textAlign(CENTER, TOP);
-              text(
-                card.ugc_crd_gang,
-                cardX,
-                cardY + 35
-              );
-              text(
-                "Health",
-                cardX + 35,
-                cardY + 70
-              );
-              text(
-                "Damage",
-                cardX - 35,
-                cardY + 70
-              );
+              text(card.ugc_crd_gang, cardX, cardY + 20);
+              fill(0);
               textStyle(NORMAL);
               noTint();
             }
@@ -214,7 +186,7 @@ class Board {
                 cardX,
                 cardY,
                 120, //this.cardsize,
-                180 //this.cardsize
+                190 //this.cardsize
               );
               noTint();
               textAlign(CENTER, CENTER);
@@ -223,31 +195,17 @@ class Board {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.ugc_crd_cost, cardX + 48, cardY - 79);
-              text(card.ugc_crd_damage, cardX - 35, cardY + 60);
-              text(card.ugc_crd_health, cardX + 35, cardY + 60);
+              text(card.ugc_crd_cost, cardX - 49, cardY - 80);
+              text(card.ugc_crd_damage, cardX - 49, cardY + 80);
+              text(card.ugc_crd_health, cardX + 49, cardY + 80);
               strokeWeight(1);
               noStroke();
-              fill(0);
               textSize(13);
-              text(card.ugc_crd_name, cardX, cardY + 25);
+              text(card.ugc_crd_name, cardX, cardY + 10);
               textSize(10);
               textAlign(CENTER, TOP);
-              text(
-                card.ugc_crd_gang,
-                cardX,
-                cardY + 35
-              );
-              text(
-                "Health",
-                cardX + 35,
-                cardY + 70
-              );
-              text(
-                "Damage",
-                cardX - 35,
-                cardY + 70
-              );
+              text(card.ugc_crd_gang, cardX, cardY + 20);
+              fill(0);
               textStyle(NORMAL);
               noTint();
             }
@@ -265,7 +223,7 @@ class Board {
                 cardX,
                 cardY,
                 120, //this.cardsize,
-                180 //this.cardsize
+                190 //this.cardsize
               );
               noTint();
               textAlign(CENTER, CENTER);
@@ -274,33 +232,19 @@ class Board {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.ugc_crd_cost, cardX + 48, cardY - 79);
-              text(card.ugc_crd_damage, cardX - 35, cardY + 60);
-              text(card.ugc_crd_health, cardX + 35, cardY + 60);
+              text(card.ugc_crd_cost, cardX - 49, cardY - 80);
+              text(card.ugc_crd_damage, cardX - 49, cardY + 80);
+              text(card.ugc_crd_health, cardX + 49, cardY + 80);
               strokeWeight(1);
               noStroke();
-              fill(0);
               textSize(13);
-              text(card.ugc_crd_name, cardX, cardY + 25);
+              text(card.ugc_crd_name, cardX, cardY + 10);
               textSize(10);
               textAlign(CENTER, TOP);
-              text(
-                card.ugc_crd_gang,
-                cardX,
-                cardY + 35
-              );
-              text(
-                "Health",
-                cardX + 35,
-                cardY + 70
-              );
-              text(
-                "Damage",
-                cardX - 35,
-                cardY + 70
-              );
+              text(card.ugc_crd_gang, cardX, cardY + 20);
+              fill(0);
               textStyle(NORMAL);
-              noTint(); 
+              noTint();
             }
           }
         }

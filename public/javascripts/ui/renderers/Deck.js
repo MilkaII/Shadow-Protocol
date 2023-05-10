@@ -26,46 +26,36 @@ class Card {
     strokeWeight(2);
     text(
       this.card.ugc_crd_cost,
-      this.x + 49,
-      this.y - 82
+      this.x - 49,
+      this.y - 80
     );
     text(
       this.card.ugc_crd_damage,
-      this.x - 35,
-      this.y + 70
+      this.x - 49,
+      this.y + 80
     );
     text(
       this.card.ugc_crd_health,
-      this.x + 35,
-      this.y + 70
+      this.x + 49,
+      this.y + 80
     );
     strokeWeight(1);
     noStroke();
-    fill(0);
     textSize(13);
     text(
       this.card.ugc_crd_name,
       this.x,
-      this.y + 25
+      this.y + 10
     );
     textSize(10);
     textAlign(CENTER, TOP);
     text(
       this.card.ugc_crd_gang,
       this.x,
-      this.y + 35
-    );
-    text(
-      "Health",
-      this.x + 35,
-      this.y + 75
-    );
-    text(
-      "Damage",
-      this.x - 35,
-      this.y + 75
+      this.y + 20
     );
     textStyle(NORMAL);
+    fill(0);
     noTint();
 
     if (this.dragging) {
