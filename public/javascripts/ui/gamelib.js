@@ -22,7 +22,11 @@ async function refresh() {
 
 function preload() {
   GameInfo.images.card = loadImage("/assets/card_template.png");
-  GameInfo.images.boardbg = loadImage("/assets/window_green.png");
+  GameInfo.images.backcard = loadImage("/assets/backcard_template.png");
+  GameInfo.images.hack = loadImage("/assets/hack_template.png");
+  GameInfo.images.chief = loadImage("/assets/chief_template.png");
+  GameInfo.images.backgroundgame = loadImage("/assets/background_game.jpg");
+  //GameInfo.images.boardbg = loadImage("/assets/window_green.png");
 }
 
 async function setup() {
@@ -74,7 +78,8 @@ async function setup() {
 }
 
 function draw() {
-  background(220);
+  imageMode(CENTER);
+  image(GameInfo.images.backgroundgame, GameInfo.width / 2, GameInfo.height / 2);
   if (GameInfo.loading) {
     textAlign(CENTER, CENTER);
     textSize(40);

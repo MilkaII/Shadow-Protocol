@@ -42,8 +42,8 @@ async function getBoardInfo() {
         650,
         380,
         30,
-        GameInfo.images.boardbg,
         GameInfo.images.card,
+        GameInfo.images.chief,
         clickActionAttack
       );
   }
@@ -70,8 +70,8 @@ async function getBenchInfo() {
         800,
         380,
         30,
-        GameInfo.images.boardbg,
         GameInfo.images.card,
+        GameInfo.images.hack,
         dragndropFromBenchToBoard
       );
   }
@@ -88,16 +88,25 @@ async function getDecksInfo() {
     else
       GameInfo.playerDeck = new Deck(
         GameInfo.matchdeck,
-        100,
+        65,
         820,
         null,
         GameInfo.images.card,
+        GameInfo.images.hack,
         dragndropFromHandToBench
       );
 
     if (GameInfo.oppDeck) GameInfo.oppDeck.update(GameInfo.matchdeck);
     else
-      GameInfo.oppDeck = new Deck(GameInfo.matchdeck, null, null, null, null);
+      GameInfo.oppDeck = new Deck(
+        GameInfo.matchdeck,
+        800,
+        200,
+        null,
+        GameInfo.images.backcard,
+        null,
+        null
+      );
   }
 }
 async function dragndropFromHandToBench(x, y, card) {

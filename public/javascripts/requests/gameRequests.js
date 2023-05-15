@@ -44,7 +44,7 @@ async function requestDeckChoosen() {
     return {
       successful: response.status == 200,
       unauthenticated: response.status == 401,
-      deck: result,
+      deck: result
     };
   } catch (err) {
     // Treat 500 errors here

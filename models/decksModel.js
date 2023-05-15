@@ -211,27 +211,26 @@ class Deck {
         "select * from user_game_card where ugc_user_game_id = ? and crd_state_id = 2",
         [game.player.id]
       );
-      let decks = [];
+      /*let [dbODecks] = await pool.query(
+        "select * from user_game_card where ugc_user_game_id = ? and crd_state_id = 2",
+        [game.opponents[0].id]
+      );*/
+
+      /*let decks = [];
+      decks.player = [];
+      decks.opponent = [];*/
+
+      let deck = [];
+
       for (let dbDeck of dbDecks) {
-        let cards = new CardGame(
-          dbDeck.ugc_id,
-          dbDeck.ugc_user_game_id,
-          dbDeck.ugc_crd_id,
-          dbDeck.ugc_crd_cost,
-          dbDeck.ugc_crd_health,
-          dbDeck.ugc_crd_damage,
-          dbDeck.ugc_crd_bonus,
-          dbDeck.ugc_crd_name,
-          dbDeck.ugc_crd_gang,
-          dbDeck.ugc_crd_info,
-          dbDeck.ugc_crd_hack_type_id,
-          dbDeck.ugc_crd_type_id,
-          dbDeck.ugc_infield,
-          dbDeck.crd_state_id
-        );
-        decks.push(cards);
+        deck.push(fromDBCardToCardGame(dbDeck));
       }
-      return { status: 200, result: decks };
+      /*for (let dbDeck of dbODecks) {
+        decks.opponent.push(fromDBCardToCardGame(dbDeck));
+      }*/
+
+      return {status: 200, result: deck};
+
     } catch (err) {
       console.log(err);
       return { status: 500, result: err };

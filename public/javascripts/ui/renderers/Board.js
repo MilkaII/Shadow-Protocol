@@ -10,8 +10,8 @@ class Board {
     width,
     height,
     bordersize,
-    backimg,
     cardimg,
+    chiefimg,
     clickaction
   ) {
     this.columns = columns;
@@ -22,8 +22,8 @@ class Board {
     this.width = width;
     this.height = height;
     this.bordersize = bordersize;
-    this.backimg = backimg;
     this.cardimg = cardimg;
+    this.chiefimg = chiefimg;
     this.clickaction = clickaction;
     /// precomputed
     this.cardx = this.cardimg.width / 2;
@@ -45,13 +45,13 @@ class Board {
       this.width + this.bordersize * 2,
       this.height + this.bordersize * 2
     );*/
-    stroke(100, 200, 100);
+    stroke(255, 255, 255);
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(20);
     strokeWeight(5);
     line(
-      this.x,
+      this.x + 130,
       this.y + Board.headery + this.rowsize,
       this.x + this.width,
       this.y + Board.headery + this.rowsize
@@ -65,7 +65,7 @@ class Board {
     );
     line(this.x + 855, this.y, this.x + 855, this.y + this.height);
     strokeWeight(0);
-    text(
+    /*text(
       this.oppName,
       this.x,
       this.y + Board.headery,
@@ -78,11 +78,11 @@ class Board {
       this.y + Board.headery + this.rowsize,
       this.colsize,
       this.rowsize
-    );
+    );*/
     for (let column of this.columns) {
       if(column.position != 5){
         strokeWeight(5);
-        stroke(100, 200, 100);
+        stroke(255, 255, 255);
         line(
           this.x + column.position * this.colsize,
           this.y,
@@ -97,13 +97,7 @@ class Board {
             if (card.ugb_crd_id == column.posPlayer) {
               if (card.crd_state_id == 5) tint(255, 0, 0, 255);
 
-              image(
-                this.cardimg,
-                cardX,
-                cardY,
-                120, //this.cardsize,
-                190 //this.cardsize
-              );
+              image(this.cardimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);
               fill(255);
@@ -134,13 +128,7 @@ class Board {
             if (card.ugb_crd_id == column.posOpponent) {
               if (card.crd_state_id == 5) tint(255, 0, 0, 255);
 
-              image(
-                this.cardimg,
-                cardX,
-                cardY,
-                120, //this.cardsize,
-                190 //this.cardsize
-              );
+              image(this.cardimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);
               fill(255);
@@ -166,7 +154,7 @@ class Board {
         }
       }else{
         strokeWeight(5);
-        stroke(100, 200, 100);
+        stroke(255, 255, 255);
         line(
           this.x + column.position * this.colsize + 75,
           this.y,
@@ -181,13 +169,7 @@ class Board {
             if (card.ugb_crd_id == column.posPlayer) {
               if (card.crd_state_id == 5) tint(255, 0, 0, 255);
 
-              image(
-                this.cardimg,
-                cardX,
-                cardY,
-                120, //this.cardsize,
-                190 //this.cardsize
-              );
+              image(this.chiefimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);
               fill(255);
@@ -195,9 +177,7 @@ class Board {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.ugc_crd_cost, cardX - 49, cardY - 80);
-              text(card.ugc_crd_damage, cardX - 49, cardY + 80);
-              text(card.ugc_crd_health, cardX + 49, cardY + 80);
+              text(card.ugc_crd_health, cardX, cardY + 85);
               strokeWeight(1);
               noStroke();
               textSize(13);
@@ -218,13 +198,7 @@ class Board {
             if (card.ugb_crd_id == column.posOpponent) {
               if (card.crd_state_id == 5) tint(255, 0, 0, 255);
 
-              image(
-                this.cardimg,
-                cardX,
-                cardY,
-                120, //this.cardsize,
-                190 //this.cardsize
-              );
+              image(this.chiefimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);
               fill(255);
@@ -232,9 +206,7 @@ class Board {
               textSize(15);
               stroke(0);
               strokeWeight(2);
-              text(card.ugc_crd_cost, cardX - 49, cardY - 80);
-              text(card.ugc_crd_damage, cardX - 49, cardY + 80);
-              text(card.ugc_crd_health, cardX + 49, cardY + 80);
+              text(card.ugc_crd_health, cardX, cardY + 85);
               strokeWeight(1);
               noStroke();
               textSize(13);
