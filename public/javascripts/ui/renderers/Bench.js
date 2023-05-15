@@ -85,43 +85,43 @@ class Bench {
     strokeWeight(5);
     //player side
     line(
-      this.x + 130,
+      this.x + 155,
       this.y + Bench.headery + 800,
-      this.x + this.width,
+      this.x + this.width + 20,
       this.y + Bench.headery + 800
     );
-    line(this.x + 800, this.y + 815, this.x + 800, this.y + this.height + 250);
+    line(this.x + 820, this.y + 815, this.x + 820, this.y + this.height + 250);
     //opponent side
     stroke(137, 4, 160);
     line(
-        this.x + 130,
+        this.x + 115,
         this.y + Bench.headery - 150,
-        this.x + this.width,
+        this.x + this.width - 20,
         this.y + Bench.headery - 150
     );
-    line(this.x + 800, this.y + Bench.headery - 150, this.x + 800, this.y + this.height / 2 - 140);
+    line(this.x + 780, this.y + Bench.headery - 150, this.x + 780, this.y + this.height / 2 - 140);
     strokeWeight(0);
     for (let column of this.columns) {
       strokeWeight(5);
       // player
       stroke(9, 122, 176);
       line(
-        this.x + column.position * this.colsize,
+        this.x + column.position * this.colsize + 20,
         this.y + 815,
-        this.x + column.position * this.colsize,
+        this.x + column.position * this.colsize + 20,
         this.y + this.height + 250
       );
       //opponent
       stroke(137, 4, 160);
       line(
-        this.x + column.position * this.colsize,
+        this.x + column.position * this.colsize - 20,
         this.y + Bench.headery - 150,
-        this.x + column.position * this.colsize,
+        this.x + column.position * this.colsize - 20,
         this.y + this.height / 2 - 140
       );
       strokeWeight(0);
       if (column.posPlayer) {
-        let cardX = this.x + column.position * this.colsize + 67;
+        let cardX = this.x + column.position * this.colsize + 87;
         let cardY = this.y + Bench.headery + this.rowsize + (this.rowsize + 860) / 2;
         for (let card of this.cards) {
           if (card.card.ugben_crd_id == column.posPlayer) {
@@ -191,7 +191,7 @@ class Bench {
         }
       }
       if (column.posOpponent) {
-        let cardX = this.x + column.position * this.colsize + 67;
+        let cardX = this.x + column.position * this.colsize + 47;
         let cardY = this.y + Bench.headery + (this.rowsize - this.cardsize - 250) / 2;
         for (let card of this.cards) {
           if (card.card.ugben_crd_id == column.posOpponent) {

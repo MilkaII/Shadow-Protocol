@@ -211,23 +211,23 @@ class Deck {
         "select * from user_game_card where ugc_user_game_id = ? and crd_state_id = 2",
         [game.player.id]
       );
-      /*let [dbODecks] = await pool.query(
+      let [dbODecks] = await pool.query(
         "select * from user_game_card where ugc_user_game_id = ? and crd_state_id = 2",
         [game.opponents[0].id]
-      );*/
+      );
 
-      /*let decks = [];
-      decks.player = [];
-      decks.opponent = [];*/
+      let deck = {};
+      deck.player = [];
+      deck.opponent = [];
 
-      let deck = [];
+      /*let deck = [];*/
 
       for (let dbDeck of dbDecks) {
-        deck.push(fromDBCardToCardGame(dbDeck));
+        deck.player.push(fromDBCardToCardGame(dbDeck));
       }
-      /*for (let dbDeck of dbODecks) {
-        decks.opponent.push(fromDBCardToCardGame(dbDeck));
-      }*/
+      for (let dbDeck of dbODecks) {
+        deck.opponent.push(fromDBCardToCardGame(dbDeck));
+      }
 
       return {status: 200, result: deck};
 

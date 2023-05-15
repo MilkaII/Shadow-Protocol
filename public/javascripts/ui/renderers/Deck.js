@@ -1,6 +1,6 @@
 class Card {
-  static width = 120; //210
-  static height = 190; //315
+  static width = 120;
+  static height = 190;
   constructor(card, x, y, cimg, himg) {
     this.card = card;
     this.x = x;
@@ -17,7 +17,9 @@ class Card {
   }
 
   draw() {
-    if(this.card.ugc_crd_type_id == 4){
+    if(this.card.ugc_user_game_id == GameInfo.game.opponents[0].id){
+      image(this.cimg, this.x, this.y, Card.width, Card.height);
+    }else if(this.card.ugc_crd_type_id == 4){
       image(this.himg, this.x, this.y, Card.width, Card.height);
 
       textAlign(CENTER, CENTER);
@@ -138,7 +140,11 @@ class Deck {
       cards.push(
         new Card(cardInfo, x, this.y + Deck.titleHeight, this.cardImg, this.hacksimg)
       );
-      x += Card.width;
+      if (cardInfo.ugc_user_game_id == GameInfo.game.opponents[0].id){
+        x -= Card.width;
+      }else{
+        x += Card.width;
+      }
     }
     return cards;
   }

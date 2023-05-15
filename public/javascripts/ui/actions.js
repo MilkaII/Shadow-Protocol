@@ -65,7 +65,7 @@ async function getBenchInfo() {
         GameInfo.cardsInBench,
         GameInfo.game.player.name,
         GameInfo.game.opponents[0].name,
-        500,
+        475,
         150,
         800,
         380,
@@ -84,10 +84,10 @@ async function getDecksInfo() {
     window.location.pathname = "index.html";
   } else {
     GameInfo.matchdeck = result.deck;
-    if (GameInfo.playerDeck) GameInfo.playerDeck.update(GameInfo.matchdeck);
+    if (GameInfo.playerDeck) GameInfo.playerDeck.update(GameInfo.matchdeck.player);
     else
       GameInfo.playerDeck = new Deck(
-        GameInfo.matchdeck,
+        GameInfo.matchdeck.player,
         65,
         820,
         null,
@@ -96,12 +96,12 @@ async function getDecksInfo() {
         dragndropFromHandToBench
       );
 
-    if (GameInfo.oppDeck) GameInfo.oppDeck.update(GameInfo.matchdeck);
+    if (GameInfo.oppDeck) GameInfo.oppDeck.update(GameInfo.matchdeck.opponent);
     else
       GameInfo.oppDeck = new Deck(
-        GameInfo.matchdeck,
-        800,
-        200,
+        GameInfo.matchdeck.opponent,
+        1810,
+        60,
         null,
         GameInfo.images.backcard,
         null,

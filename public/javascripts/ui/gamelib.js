@@ -89,6 +89,7 @@ function draw() {
     GameInfo.scoreWindow.draw();
   } else if (GameInfo.game.state != "Choose Deck" && GameInfo.game.state != "Ready"){
     GameInfo.playerDeck.draw();
+    GameInfo.oppDeck.draw();
     GameInfo.playerDeck.updateDrag();
     GameInfo.scoreBoard.draw();
     GameInfo.board.draw();
