@@ -84,7 +84,7 @@ class Card {
 
         for (let i = 0; i < playerdeck.deck_crd_qty; i++) {
           let [result] = await pool.query(
-            `Insert into user_game_card (ugc_user_game_id,ugc_crd_id,ugc_crd_cost,ugc_crd_health,ugc_crd_damage,ugc_crd_bonus,ugc_crd_active, ugc_crd_name,ugc_crd_gang,ugc_crd_info,ugc_crd_hack_type_id,ugc_crd_type_id,crd_state_id)
+            `Insert into user_game_card (ugc_user_game_id,ugc_crd_id,ugc_crd_cost,ugc_crd_health,ugc_crd_damage,ugc_crd_bonus, ugc_crd_name,ugc_crd_gang,ugc_crd_info,ugc_crd_hack_type_id,ugc_crd_type_id,crd_state_id)
                   values (?,?,?,?,?,?,?,?,?,?,?,1)`,
             [
               playerId,
@@ -165,6 +165,7 @@ class CardGame {
     this.ugc_crd_type_id = ugc_crd_type_id;
     this.ugc_infield = ugc_infield;
     this.crd_state_id = crd_state_id;
+    this.hasAttacked = false; 
   }
 }
 
@@ -502,6 +503,10 @@ class Deck {
       let cardopp = fromDBCardToCardGame(dbCardopp[0]); 
       let chiefCard = fromDBCardToCardGame(dbchiefCard[0]);
 
+      if (cardplayer.hasAttacked) {
+          return { status: 400, result: { msg: "This card has already attacked!" } };
+        }
+
       //attack other cards
       if (cardplayer.ugc_crd_type_id == 1) {
         return { status: 400, result: { msg: "You can't attack with the chief!" } };
@@ -576,6 +581,8 @@ class Deck {
     } catch (err) {
       console.log(err);
       return { status: 500, result: err };
+    } finally {
+        cardplayer.hasAttacked = true;
     }
   }
 }
