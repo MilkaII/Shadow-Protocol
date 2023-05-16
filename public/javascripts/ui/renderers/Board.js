@@ -95,7 +95,10 @@ class Board {
           let cardY = this.y + Board.headery + this.rowsize + (this.rowsize + 10) / 2;
           for (let card of GameInfo.cardsInBoard) {
             if (card.ugb_crd_id == column.posPlayer) {
+              console.log(card.ugc_crd_id);
+              console.log(GameInfo.selectedCards[0])
               if (card.crd_state_id == 5) tint(255, 0, 0, 255);
+              else if (GameInfo.selectedCards[0] == card.ugc_id || GameInfo.selectedCards[1] == card.ugc_id) tint(0, 255, 0, 255);
 
               image(this.cardimg, cardX, cardY, 120, 190);
               noTint();
@@ -127,7 +130,7 @@ class Board {
           for (let card of GameInfo.cardsInBoard) {
             if (card.ugb_crd_id == column.posOpponent) {
               if (card.crd_state_id == 5) tint(255, 0, 0, 255);
-
+              else if (GameInfo.selectedCards[0] == card.ugc_id || GameInfo.selectedCards[1] == card.ugc_id) tint(0, 255, 0, 255);
               image(this.cardimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);

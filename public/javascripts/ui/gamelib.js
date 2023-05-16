@@ -9,12 +9,8 @@ async function refresh() {
     await getBoardInfo();
     await getBenchInfo();
     await getDecksInfo();
-  
-
-    if (GameInfo.game.player.state != "Waiting") {
-      // The moment we pass from waiting to play
-      GameInfo.prepareUI();
-    }
+    
+    GameInfo.prepareUI();
   }
   // Nothing to do when we are playing since we control all that happens
   // so no update is needed from the server

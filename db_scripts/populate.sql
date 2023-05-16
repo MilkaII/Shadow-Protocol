@@ -49,39 +49,3 @@ insert into game_board (gb_pos) values (1),(2),(3),(4),(5);
 insert into game_bench (gben_pos) values (1),(2),(3),(4),(5);
 
 INSERT INTO user VALUES (1,'me','$2b$10$Wemfac2wY/7RSCdKxuYUL.GV2clfhXC66OL76uCpDFUmpYZ/bGZtW','48MnTVJ6sKIvanVHbP5Vx5rysbYrVN4EbYmk4D8xESdfm1hx8jDfNFZGNw9OZs'),(2,'me2','$2b$10$6j2xIDnnxv.TLfBSstbbO.qE7wFTf5envx/uijiFjCP3slsy7EE4K','dQ7NrsbPsuF81xFGNioR1K0tiYkjtxOhemcgMhuFIS68VrFUC9gggm3JCgzkqe');
-
-/* database with data */
-INSERT INTO game (gm_turn, gm_state_id) values (1, 2), (1, 2), (1, 2);
-
-INSERT INTO user_game (ug_order, ug_user_id, ug_game_id, ug_state_id, ug_deck_id) values (1, 1, 1, 5, 1), (2, 2, 1, 5, 2),(1, 1, 2, 5, 1), (2, 2, 2, 5, 2),  (1, 1, 3, 5, 1),  (2, 2, 3, 5, 2);
-
-INSERT INTO user_game_card (ugc_user_game_id, ugc_crd_id, ugc_crd_cost, ugc_crd_health, ugc_crd_damage, ugc_crd_bonus, ugc_crd_name, ugc_crd_gang, ugc_crd_info, ugc_crd_hack_type_id, ugc_crd_type_id, crd_state_id) values 
-   (1, 1, 0, 25, 5, null, "Cipher","Neon Syndicate", null, null, 1, 1),
-   (1, 2, 2, 6, 9, null, "Armitager", "Neon Syndicate", null, null, 3, 4),
-   (1, 2, 2, 6, 9, null, "Armitager", "Neon Syndicate", null, null, 3, 1),
-   (1, 3, 2, 12, 1, null, "Gunnar","Neon Syndicate", null, null, 2, 4),
-   (1, 3, 2, 12, 1, null, "Gunnar","Neon Syndicate", null, null, 2, 3),
-   (1, 3, 2, 12, 1, null, "Gunnar","Neon Syndicate", null, null, 2, 1),
-   (1, 4, 2, 1, 2, null, "Rezin","Neon Syndicate", null, null, 2, 2),
-   (1, 4, 2, 1, 2, null, "Rezin","Neon Syndicate", null, null, 2, 1),
-   (1, 5, 2, 0, 0, 3, "Maxine","Neon Syndicate", "Give +3 damage to a unit", 2, 4, 5),
-   (1, 5, 2, 0, 0, 3, "Maxine","Neon Syndicate", "Give +3 damage to a unit", 2, 4, 1),
-
-   (2, 6, 5, 25, 5, null, "Makko","Data Devils", null, null, 1, 1),
-   (2, 7, 2, 6, 9, null, "Erythrina", "Data Devils", null, null, 3, 1),
-   (2, 7, 2, 6, 9, null, "Erythrina", "Data Devils", null, null, 3, 1),
-   (2, 8, 2, 12, 1, null, "Vyrva","Data Devils", null, null, 2, 3),
-   (2, 8, 2, 12, 1, null, "Vyrva","Data Devils", null, null, 2, 2),
-   (2, 8, 2, 12, 1, null, "Vyrva","Data Devils", null, null, 2, 1),
-   (2, 9, 2, 1, 2, null, "Dredd Officer","Data Devils", null, null, 2, 5),
-   (2, 9, 2, 1, 2, null, "Dredd Officer","Data Devils", null, null, 2, 1),
-   (2, 10, 2, 0, 0, 3, "Deckard","Data Devils", "Give +3 Health to a unit", 1, 4, 4),
-   (2, 10, 2, 0, 0, 3, "Deckard","Data Devils", "Give +3 Health to a unit", 1, 4, 2); 
-
-  INSERT INTO user_game_board (ugb_ug_id, ugb_crd_id, ugb_pos_id) values (1, 2, 1), (1, 4, 2), (2, 19, 2);
-
-  INSERT INTO user_game_bench (ugben_ug_id, ugben_crd_id, ugben_pos_id) values (1, 5, 1), (2, 14, 2);
-
-  INSERT INTO game (gm_turn, gm_state_id) values (1, 3);
-
-  INSERT INTO scoreboard (sb_user_game_id, sb_state_id) values (1, 3), (2, 2);

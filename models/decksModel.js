@@ -14,6 +14,7 @@ function fromDBCardToCardGame(dbCardGame) {
     dbCardGame.ugc_crd_health,
     dbCardGame.ugc_crd_damage,
     dbCardGame.ugc_crd_bonus,
+    dbCardGame.ugc_crd_active,
     dbCardGame.ugc_crd_name,
     dbCardGame.ugc_crd_gang,
     dbCardGame.ugc_crd_info,
@@ -83,7 +84,7 @@ class Card {
 
         for (let i = 0; i < playerdeck.deck_crd_qty; i++) {
           let [result] = await pool.query(
-            `Insert into user_game_card (ugc_user_game_id,ugc_crd_id,ugc_crd_cost,ugc_crd_health,ugc_crd_damage,ugc_crd_bonus,ugc_crd_name,ugc_crd_gang,ugc_crd_info,ugc_crd_hack_type_id,ugc_crd_type_id,crd_state_id)
+            `Insert into user_game_card (ugc_user_game_id,ugc_crd_id,ugc_crd_cost,ugc_crd_health,ugc_crd_damage,ugc_crd_bonus,ugc_crd_active, ugc_crd_name,ugc_crd_gang,ugc_crd_info,ugc_crd_hack_type_id,ugc_crd_type_id,crd_state_id)
                   values (?,?,?,?,?,?,?,?,?,?,?,1)`,
             [
               playerId,
@@ -140,6 +141,7 @@ class CardGame {
     ugc_crd_health,
     ugc_crd_damage,
     ugc_crd_bonus,
+    ugc_crd_active,
     ugc_crd_name,
     ugc_crd_gang,
     ugc_crd_info,
@@ -155,6 +157,7 @@ class CardGame {
     this.ugc_crd_health = ugc_crd_health;
     this.ugc_crd_damage = ugc_crd_damage;
     this.ugc_crd_bonus = ugc_crd_bonus;
+    this.ugc_crd_active = ugc_crd_active
     this.ugc_crd_name = ugc_crd_name,
     this.ugc_crd_gang = ugc_crd_gang,
     this.ugc_crd_info = ugc_crd_info;

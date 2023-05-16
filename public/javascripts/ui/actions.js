@@ -149,17 +149,16 @@ async function ChooseDeck2Action() {
 }
 
 // remake this
-let selectedCards = [];
 async function clickActionAttack(x, y) {
   let card = GameInfo.board.getCardAt(x, y);
-  selectedCards.push(card);
+  GameInfo.selectedCards.push(card);
 
-  if (selectedCards.length === 2) {
-    if(selectedCards[0] == selectedCards[1]){
+  if (GameInfo.selectedCards.length === 2) {
+    if(GameInfo.selectedCards[0] == GameInfo.selectedCards[1]){
       alert("You can't attack your own card");
     }
-    await attackCard(selectedCards[0], selectedCards[1]);
-    selectedCards = [];
+    await attackCard(GameInfo.selectedCards[0], GameInfo.selectedCards[1]);
+    GameInfo.selectedCards = [];
   }
 }
 

@@ -15,6 +15,7 @@ class GameInfo {
   static cardsInBench;
   static images = {};
   static sounds = {};
+  static selectedCards = [];
 
   // renderers
   static scoreBoard;

@@ -97,6 +97,7 @@ create table user_game_card (
     ugc_crd_health int not null,
     ugc_crd_damage int not null,
     ugc_crd_bonus int,
+    ugc_crd_active boolean not null default false,
     ugc_crd_name varchar(50) not null,
     ugc_crd_gang varchar(50) not null,
     ugc_crd_info varchar(50),
