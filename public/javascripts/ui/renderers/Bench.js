@@ -251,6 +251,7 @@ class Bench {
       return;
     }
 
+    //add if for limit the drandrop
     let pos = Math.floor((mouseX - this.x) / this.colsize) - 1;
     let cardpress = this.columns[pos];
 
@@ -267,6 +268,7 @@ class Bench {
               card.dragy = mouseY + card.offsetY;
               card.dragging = true;
               this.draggingCard = card;
+              GameInfo.dragbenchtoboard = true;
             }
           }
         }

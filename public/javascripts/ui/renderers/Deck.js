@@ -177,6 +177,7 @@ class Deck {
     if (!this.draggable) {
       return;
     }
+     //add if for limit the drandrop
     for (let card of this.cards) {
       if (this.draggable && mouseX > card.x - Card.width / 2 && mouseX < card.x + Card.width / 2 && mouseY > card.y - Card.height / 2 && mouseY < card.y + Card.height / 2) {
         card.offsetX = card.x - mouseX;

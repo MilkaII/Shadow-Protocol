@@ -150,14 +150,40 @@ async function ChooseDeck2Action() {
 
 // remake this
 async function clickActionAttack(x, y) {
+  if(GameInfo.dragbenchtoboard == true){
+    return
+  }
+
+  if(GameInfo.game.player.state == "Waiting"){
+    return
+  }
+
+  if(GameInfo.game.turn == 1) {
+    alert("You can't attack in the first turn");
+    return
+  }
+
+  GameInfo.cardattack = true;
+
   let card = GameInfo.board.getCardAt(x, y);
   GameInfo.selectedCards.push(card);
 
+  if(GameInfo.selectedCards[0].ugc_crd_active == false){
+    alert("You can't use this card");
+    GameInfo.selectedCards = [];
+    GameInfo.cardattack = false;
+  }
+
   if (GameInfo.selectedCards.length === 2) {
-    if(GameInfo.selectedCards[0] == GameInfo.selectedCards[1]){
+
+    if(GameInfo.selectedCards[0].ugc_id == GameInfo.selectedCards[1].ugc_id){
       alert("You can't attack your own card");
     }
-    await attackCard(GameInfo.selectedCards[0], GameInfo.selectedCards[1]);
+    
+    if(GameInfo.selectedCards[0].ugc_crd_active == true){
+      await attackCard(GameInfo.selectedCards[0].ugc_id, GameInfo.selectedCards[1].ugc_id);
+    }
+
     GameInfo.selectedCards = [];
   }
 }
@@ -184,6 +210,7 @@ async function playCardFromBenchToBoard(card, position) {
         await getBoardInfo();
         await getBenchInfo();
         await getDecksInfo();
+        GameInfo.dragbenchtoboard = false;
         alert(result.msg);
       }
     }
@@ -195,6 +222,7 @@ async function playCardFromBenchToBoard(card, position) {
         await getBoardInfo();
         await getBenchInfo();
         await getDecksInfo();
+        GameInfo.dragbenchtoboard = false;
         alert(result.msg);
       }
     }
@@ -209,6 +237,7 @@ async function attackCard(playercard, oppcard) {
     await getBoardInfo();
     await getBenchInfo();
     await getDecksInfo();
+    GameInfo.cardattack = false;
     alert(result.msg);
   }
   //}

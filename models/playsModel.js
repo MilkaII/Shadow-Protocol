@@ -142,6 +142,11 @@ class Play {
         );
       }
 
+      await pool.query(
+        "update user_game_card set ugc_crd_active = true where ugc_user_game_id = ? and crd_state_id = 4",
+        [game.player.id]
+      );
+
       return { status: 200, result: { msg: "Your turn ended." } };
     } catch (err) {
       console.log(err);

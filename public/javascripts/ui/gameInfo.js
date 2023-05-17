@@ -27,6 +27,10 @@ class GameInfo {
   static board;
   static bench;
 
+  //verification
+  static dragbenchtoboard = false;
+  static attackcard = false;
+
   // buttons
   static endturnButton;
   static choosedeck1button;

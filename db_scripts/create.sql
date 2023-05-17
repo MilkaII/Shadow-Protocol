@@ -97,13 +97,13 @@ create table user_game_card (
     ugc_crd_health int not null,
     ugc_crd_damage int not null,
     ugc_crd_bonus int,
-    ugc_crd_active boolean not null default false,
     ugc_crd_name varchar(50) not null,
     ugc_crd_gang varchar(50) not null,
     ugc_crd_info varchar(50),
     ugc_crd_hack_type_id int,
     ugc_crd_type_id int not null,
     ugc_infield boolean not null default false,
+    ugc_crd_active boolean not null default true,
     crd_state_id int not null,
     primary key (ugc_id));
 

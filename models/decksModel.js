@@ -14,13 +14,13 @@ function fromDBCardToCardGame(dbCardGame) {
     dbCardGame.ugc_crd_health,
     dbCardGame.ugc_crd_damage,
     dbCardGame.ugc_crd_bonus,
-    dbCardGame.ugc_crd_active,
     dbCardGame.ugc_crd_name,
     dbCardGame.ugc_crd_gang,
     dbCardGame.ugc_crd_info,
     dbCardGame.ugc_crd_hack_type_id,
     dbCardGame.ugc_crd_type_id,
     dbCardGame.ugc_infield,
+    dbCardGame.ugc_crd_active,
     dbCardGame.crd_state_id
   );
 }
@@ -141,13 +141,13 @@ class CardGame {
     ugc_crd_health,
     ugc_crd_damage,
     ugc_crd_bonus,
-    ugc_crd_active,
     ugc_crd_name,
     ugc_crd_gang,
     ugc_crd_info,
     ugc_crd_hack_type_id,
     ugc_crd_type_id,
     ugc_infield,
+    ugc_crd_active,
     crd_state_id
   ) {
     this.ugc_id = ugc_id;
@@ -157,15 +157,14 @@ class CardGame {
     this.ugc_crd_health = ugc_crd_health;
     this.ugc_crd_damage = ugc_crd_damage;
     this.ugc_crd_bonus = ugc_crd_bonus;
-    this.ugc_crd_active = ugc_crd_active
     this.ugc_crd_name = ugc_crd_name,
     this.ugc_crd_gang = ugc_crd_gang,
     this.ugc_crd_info = ugc_crd_info;
     this.ugc_crd_hack_type_id = ugc_crd_hack_type_id;
     this.ugc_crd_type_id = ugc_crd_type_id;
     this.ugc_infield = ugc_infield;
+    this.ugc_crd_active = ugc_crd_active;
     this.crd_state_id = crd_state_id;
-    this.hasAttacked = false; 
   }
 }
 
@@ -503,9 +502,9 @@ class Deck {
       let cardopp = fromDBCardToCardGame(dbCardopp[0]); 
       let chiefCard = fromDBCardToCardGame(dbchiefCard[0]);
 
-      if (cardplayer.hasAttacked) {
+      /*if (cardplayer.hasAttacked) {
           return { status: 400, result: { msg: "This card has already attacked!" } };
-        }
+        }*/
 
       //attack other cards
       if (cardplayer.ugc_crd_type_id == 1) {
@@ -522,15 +521,18 @@ class Deck {
                 [cardopp.ugc_id]
               );
               return await EndGame.endGame(game);
-              /*
-              await pool.query('update user_game set ug_state_id = 4 where ug_user_id = ?', [game.opponents[0].id]);
-              return { status: 200, result: { msg: "You won! Opponent's chief card died." } };
-              */
             } else {
+
               await pool.query(
                 "update user_game_card set ugc_crd_health = ? where ugc_id = ?",
                 [cardopp.ugc_crd_health, cardopp.ugc_id]
               );
+
+              await pool.query(
+                "update user_game_card set ugc_crd_active = false where ugc_id = ?",
+                [cardplayer.ugc_id]
+              );
+
               return { status: 200, result: { msg: "Chief attacked!" } };
             }
           
@@ -549,8 +551,6 @@ class Deck {
                 [chiefCard.ugc_id]
               );
               return await EndGame.endGame(game);
-              /*await pool.query('update user_game set ug_state_id = 4 where ug_user_id = ?', [game.opponents[0].id]);
-              return { status: 200, result: { msg: "You won! Opponent's chief card died." } };*/
             } else {
               await pool.query(
                 "update user_game_card set ugc_crd_health = ? where ugc_id = ?",
@@ -574,6 +574,11 @@ class Deck {
             );
             
           }
+
+          await pool.query(
+            "update user_game_card set ugc_crd_active = false where ugc_id = ?",
+            [cardplayer.ugc_id]
+          );
           return { status: 200, result: { msg: "Card attacked!" } };
         }
       }
@@ -581,8 +586,6 @@ class Deck {
     } catch (err) {
       console.log(err);
       return { status: 500, result: err };
-    } finally {
-        cardplayer.hasAttacked = true;
     }
   }
 }

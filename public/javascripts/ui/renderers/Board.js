@@ -31,6 +31,7 @@ class Board {
     this.colsize = this.width / (this.columns.length);
     this.rowsize = (this.height - Board.headery) / 2;
     this.cardsize = this.colsize / 3;
+    this.clickCard = null;
   }
 
   update(columns) {
@@ -95,13 +96,25 @@ class Board {
           let cardY = this.y + Board.headery + this.rowsize + (this.rowsize + 10) / 2;
           for (let card of GameInfo.cardsInBoard) {
             if (card.ugb_crd_id == column.posPlayer) {
-              console.log(card.ugc_crd_id);
-              console.log(GameInfo.selectedCards[0])
+              //console.log(card.ugb_crd_id);
+              //console.log(GameInfo.selectedCards[0]);
               if (card.crd_state_id == 5) tint(255, 0, 0, 255);
-              else if (GameInfo.selectedCards[0] == card.ugc_id || GameInfo.selectedCards[1] == card.ugc_id) tint(0, 255, 0, 255);
+              if(card.ugc_crd_active == false){
+                tint(255, 90);
+              }
+
+              if(GameInfo.cardattack == true){
+                if (GameInfo.selectedCards.length >= 1){
+                  if(card.ugc_crd_active == true){
+                    if (GameInfo.selectedCards[0].ugc_id == card.ugb_crd_id /*|| GameInfo.selectedCards[1].ugc_id == card.ugb_crd_id*/){
+                      tint(0, 255, 0, 255);
+                    }
+                  }
+                }
+              }
 
               image(this.cardimg, cardX, cardY, 120, 190);
-              noTint();
+              //noTint();
               textAlign(CENTER, CENTER);
               fill(255);
               textStyle(BOLD);
@@ -130,7 +143,13 @@ class Board {
           for (let card of GameInfo.cardsInBoard) {
             if (card.ugb_crd_id == column.posOpponent) {
               if (card.crd_state_id == 5) tint(255, 0, 0, 255);
-              else if (GameInfo.selectedCards[0] == card.ugc_id || GameInfo.selectedCards[1] == card.ugc_id) tint(0, 255, 0, 255);
+              if(GameInfo.cardattack == true){
+                if (GameInfo.selectedCards.length === 2){
+                  if (GameInfo.selectedCards[0].ugc_id == card.ugb_crd_id || GameInfo.selectedCards[1].ugc_id == card.ugb_crd_id ){
+                    tint(0, 255, 0, 255);
+                  }
+                }
+              }
               image(this.cardimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);
@@ -172,6 +191,14 @@ class Board {
             if (card.ugb_crd_id == column.posPlayer) {
               if (card.crd_state_id == 5) tint(255, 0, 0, 255);
 
+              /*if (GameInfo.selectedCards.length === 2){
+                if(card.ugc_crd_active == true){
+                  if (GameInfo.selectedCards[1].ugc_id == card.ugb_crd_id){
+                    tint(0, 255, 0, 255);
+                  }
+                }
+              }*/
+
               image(this.chiefimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);
@@ -200,6 +227,14 @@ class Board {
           for (let card of GameInfo.cardsInBoard) {
             if (card.ugb_crd_id == column.posOpponent) {
               if (card.crd_state_id == 5) tint(255, 0, 0, 255);
+
+              if(GameInfo.cardattack == true){
+                if (GameInfo.selectedCards.length === 2){
+                  if (GameInfo.selectedCards[1].ugc_id == card.ugb_crd_id ){
+                    tint(0, 255, 0, 255);
+                  }
+                }
+              }
 
               image(this.chiefimg, cardX, cardY, 120, 190);
               noTint();
@@ -273,8 +308,9 @@ class Board {
     mouseY < this.y + this.height &&
     mouseX > this.x + 5 * this.colsize + 75 &&
     mouseX < this.x + 855
-    */
+    */  
 
+    //remake the if
     if (
       y > this.y + Board.headery + this.rowsize &&
       y < this.y + this.height &&
@@ -282,8 +318,18 @@ class Board {
       x < this.x + this.width
     ) {
       let pos = Math.floor((x - this.x) / this.colsize) - 1;
-      let column = this.columns[pos];
-      return column.posPlayer;
+      let cardpress = this.columns[pos];
+
+      for (let column of this.columns) {
+        if (column.posPlayer == cardpress.posPlayer) {
+          for (let card of GameInfo.cardsInBoard) {
+            if (card.ugb_crd_id == cardpress.posPlayer) {
+              return card;
+            }
+          }
+        }
+      }
+      //return column.posPlayer;
     } 
     else if (
       y > this.y + Board.headery + this.rowsize &&
@@ -292,8 +338,18 @@ class Board {
       x < this.x + 855
     ) {
       let pos = Math.floor((x - this.x) / this.colsize) - 2;
-      let column = this.columns[pos];
-      return column.posPlayer;
+      let cardpress = this.columns[pos];
+
+      for (let column of this.columns) {
+        if (column.posPlayer == cardpress.posPlayer) {
+          for (let card of GameInfo.cardsInBoard) {
+            if (card.ugb_crd_id == cardpress.posPlayer) {
+              return card;
+            }
+          }
+        }
+      }
+      //return column.posPlayer;
     }
     else if (
       y > this.y + Board.headery &&
@@ -302,8 +358,18 @@ class Board {
       x < this.x + this.width
     ) {
       let pos = Math.floor((x - this.x) / this.colsize) - 1;
-      let column = this.columns[pos];
-      return column.posOpponent;
+      let cardpress = this.columns[pos];
+
+      for (let column of this.columns) {
+        if (column.posOpponent == cardpress.posOpponent) {
+          for (let card of GameInfo.cardsInBoard) {
+            if (card.ugb_crd_id == cardpress.posOpponent) {
+              return card;
+            }
+          }
+        }
+      }
+      //return column.posOpponent;
     }
     else if (
       y > this.y + Board.headery &&
@@ -312,8 +378,18 @@ class Board {
       x < this.x + 855
     ) {
       let pos = Math.floor((x - this.x) / this.colsize) - 2;
-      let column = this.columns[pos];
-      return column.posOpponent;
+      let cardpress = this.columns[pos];
+
+      for (let column of this.columns) {
+        if (column.posOpponent == cardpress.posOpponent) {
+          for (let card of GameInfo.cardsInBoard) {
+            if (card.ugb_crd_id == cardpress.posOpponent) {
+              return card;
+            }
+          }
+        }
+      }
+      //return column.posOpponent;
     }
   }
 }
