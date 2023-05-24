@@ -17,6 +17,7 @@ function fromDBCardToCardGame(dbCardGame) {
     dbCardGame.ugc_crd_name,
     dbCardGame.ugc_crd_gang,
     dbCardGame.ugc_crd_info,
+    dbCardGame.ugc_crd_image,
     dbCardGame.ugc_crd_hack_type_id,
     dbCardGame.ugc_crd_type_id,
     dbCardGame.ugc_infield,
@@ -42,6 +43,7 @@ class Card {
     crd_name,
     crd_gang,
     crd_info,
+    crd_image,
     crd_hack_type_id,
     crd_type_id
   ) {
@@ -53,6 +55,7 @@ class Card {
     this.crd_name = crd_name;
     this.crd_gang = crd_gang;
     this.crd_info = crd_info;
+    this.crd_image = crd_image;
     this.crd_hack_type_id = crd_hack_type_id;
     this.crd_type_id = crd_type_id;
   }
@@ -76,6 +79,7 @@ class Card {
             playerdeck.crd_name,
             playerdeck.crd_gang,
             playerdeck.crd_info,
+            playerdeck.crd_image,
             playerdeck.crd_hack_type_id,
             new CardType(playerdeck.ct_id, playerdeck.ct_name)
           ),
@@ -84,8 +88,8 @@ class Card {
 
         for (let i = 0; i < playerdeck.deck_crd_qty; i++) {
           let [result] = await pool.query(
-            `Insert into user_game_card (ugc_user_game_id,ugc_crd_id,ugc_crd_cost,ugc_crd_health,ugc_crd_damage,ugc_crd_bonus, ugc_crd_name,ugc_crd_gang,ugc_crd_info,ugc_crd_hack_type_id,ugc_crd_type_id,crd_state_id)
-                  values (?,?,?,?,?,?,?,?,?,?,?,1)`,
+            `Insert into user_game_card (ugc_user_game_id,ugc_crd_id,ugc_crd_cost,ugc_crd_health,ugc_crd_damage,ugc_crd_bonus, ugc_crd_name,ugc_crd_gang,ugc_crd_info,ugc_crd_image,ugc_crd_hack_type_id,ugc_crd_type_id,crd_state_id)
+                  values (?,?,?,?,?,?,?,?,?,?,?,?,1)`,
             [
               playerId,
               cards.deck_crd_id.crd_id,
@@ -96,6 +100,7 @@ class Card {
               cards.deck_crd_id.crd_name,
               cards.deck_crd_id.crd_gang,
               cards.deck_crd_id.crd_info,
+              cards.deck_crd_id.crd_image,
               cards.deck_crd_id.crd_hack_type_id,
               cards.deck_crd_id.crd_type_id.id,
             ]
@@ -144,6 +149,7 @@ class CardGame {
     ugc_crd_name,
     ugc_crd_gang,
     ugc_crd_info,
+    ugc_crd_image,
     ugc_crd_hack_type_id,
     ugc_crd_type_id,
     ugc_infield,
@@ -160,6 +166,7 @@ class CardGame {
     this.ugc_crd_name = ugc_crd_name,
     this.ugc_crd_gang = ugc_crd_gang,
     this.ugc_crd_info = ugc_crd_info;
+    this.ugc_crd_image = ugc_crd_image;
     this.ugc_crd_hack_type_id = ugc_crd_hack_type_id;
     this.ugc_crd_type_id = ugc_crd_type_id;
     this.ugc_infield = ugc_infield;
@@ -194,6 +201,7 @@ class Deck {
             dbDeck.crd_name,
             dbDeck.crd_gang,
             dbDeck.crd_info,
+            dbDeck.crd_image,
             dbDeck.crd_hack_type_id,
             new CardType(dbDeck.ct_id, dbDeck.ct_name)
           ),

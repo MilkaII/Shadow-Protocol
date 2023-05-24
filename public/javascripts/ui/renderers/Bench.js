@@ -1,14 +1,73 @@
 class Cards{
   static width = 120;
   static height = 180;
-  constructor(card) {
+  constructor(card, img, hacksimg) {
     this.card = card;
+    this.img = img;
+    this.hacksimg = hacksimg;
     this.dragging = false;
     this.offsety = 0;
     this.offsetx = 0;
     this.dragx = 0;
     this.dragy = 0;
     this.selected = false;
+
+    this.x = 0;
+    this.y = 0;
+    this.hover = false;
+  }
+
+  draw(){
+    if(this.card.ugc_crd_type_id == 4){
+
+      image(GameInfo.images.cardbackground[this.card.ugc_crd_image], this.x, this.y - 55, 120 + 25, 190 - 90);
+      image(this.hacksimg, this.x, this.y, 120 + 30, 190 + 30);
+      noTint();
+      textAlign(CENTER, CENTER);
+      fill(255);
+      textStyle(BOLD);
+      textSize(20);
+      stroke(0);
+      strokeWeight(2);
+      text(this.card.ugc_crd_cost, this.x - 62, this.y - 93);
+      strokeWeight(1);
+      noStroke();
+      textSize(17);
+      text(this.card.ugc_crd_name, this.x, this.y + 10);
+      textSize(12);
+      textAlign(CENTER, TOP);
+      text(this.card.ugc_crd_gang, this.x, this.y + 20);
+      text(this.card.ugc_crd_info, this.x - 50, this.y + 45, 100);
+      fill(0);
+      textStyle(NORMAL);
+      noTint();
+
+    }else{
+
+      image(GameInfo.images.cardbackground[this.card.ugc_crd_image], this.x, this.y - 55, 120 + 25, 190 - 90);
+      image(this.img, this.x, this.y, 120 + 30, 190 + 30);
+      noTint();
+      textAlign(CENTER, CENTER);
+      fill(255);
+      textStyle(BOLD);
+      textSize(20);
+      stroke(0);
+      strokeWeight(2);
+      text(this.card.ugc_crd_cost, this.x - 62, this.y - 93);
+      text(this.card.ugc_crd_damage, this.x - 60, this.y + 93);
+      text(this.card.ugc_crd_health, this.x + 60, this.y + 93);
+      strokeWeight(1);
+      noStroke();
+      textSize(17);
+      text(this.card.ugc_crd_name, this.x, this.y + 10);
+      textSize(12);
+      textAlign(CENTER, TOP);
+      text(this.card.ugc_crd_gang, this.x, this.y + 20);
+      fill(0);
+      textStyle(NORMAL);
+      noTint();
+
+    }
   }
 }
 
@@ -59,7 +118,7 @@ class Bench {
     let cards = [];
     for (let cardInfo of cardsInfo) {
       cards.push(
-        new Cards(cardInfo)
+        new Cards(cardInfo, this.cardimg, this.hacksimg)
       );
     }
     return cards;
@@ -74,6 +133,11 @@ class Bench {
     if (this.draggingCard !== null) {
       this.draggingCard.dragx = mouseX + this.draggingCard.offsetX;
       this.draggingCard.dragy = mouseY + this.draggingCard.offsetY;
+    }
+    for (let card of this.cards) {
+      if(card.hover){
+        card.draw();
+      }
     }
   }
 
@@ -126,66 +190,129 @@ class Bench {
         for (let card of this.cards) {
           if (card.card.ugben_crd_id == column.posPlayer) {
             if(card.card.ugc_crd_type_id == 4){
+              if(!card.hover && !card.dragging){
+                image(GameInfo.images.cardbackground[card.card.ugc_crd_image], cardX, cardY - 47, 120 - 3, 190 - 105);
+                image(this.hacksimg, cardX, cardY, 120, 190);
+                noTint();
+                textAlign(CENTER, CENTER);
+                fill(255);
+                textStyle(BOLD);
+                textSize(15);
+                stroke(0);
+                strokeWeight(2);
+                text(card.card.ugc_crd_cost, cardX - 49, cardY - 80);
+                strokeWeight(1);
+                noStroke();
+                textSize(13);
+                text(card.card.ugc_crd_name, cardX, cardY + 10);
+                textSize(10);
+                textAlign(CENTER, TOP);
+                text(card.card.ugc_crd_gang, cardX, cardY + 20);
+                text(card.card.ugc_crd_info, cardX - 50, cardY + 45, 100);
+                fill(0);
+                textStyle(NORMAL);
+                noTint();
+              }
+
+              if(GameInfo.game.player.state != "Waiting") {
+                if(mouseX > cardX - 120 / 2 && mouseX < cardX + 120 / 2 && mouseY > cardY - 190 / 2 && mouseY < cardY + 190 / 2){
+                  if(!GameInfo.dragging){
+                    card.x = cardX;
+                    card.y = cardY;
+                    card.hover = true;
+                  }
+                }else{
+                  card.hover = false;
+                }
+              }
+
               if (card.dragging) {
                 tint(255, 100);
+                image(GameInfo.images.cardbackground[card.card.ugc_crd_image], card.dragx, card.dragy - 47, Cards.width - 3, Cards.height - 105);
                 image(this.hacksimg, card.dragx, card.dragy, Cards.width, Cards.height);
+                textAlign(CENTER, CENTER);
+                fill(255);
+                textStyle(BOLD);
+                textSize(15);
+                stroke(0);
+                strokeWeight(2);
+                text(card.card.ugc_crd_cost, card.dragx - 49, card.dragy - 80);
+                strokeWeight(1);
+                noStroke();
+                textSize(13);
+                text(card.card.ugc_crd_name, card.dragx, card.dragy + 10);
+                textSize(10);
+                textAlign(CENTER, TOP);
+                text(card.card.ugc_crd_gang, card.dragx, card.dragy + 20);
+                text(card.card.ugc_crd_info, card.dragx - 50, card.dragy + 45, 100);
+                fill(0);
+                textStyle(NORMAL);
                 tint(255, 255);
               }
 
-              image(this.hacksimg, cardX, cardY, 120, 190);
-              noTint();
-              textAlign(CENTER, CENTER);
-              fill(255);
-              textStyle(BOLD);
-              textSize(15);
-              stroke(0);
-              strokeWeight(2);
-              text(card.card.ugc_crd_cost, cardX - 49, cardY - 80);
-              strokeWeight(1);
-              noStroke();
-              textSize(13);
-              text(card.card.ugc_crd_name, cardX, cardY + 10);
-              textSize(10);
-              textAlign(CENTER, TOP);
-              text(card.card.ugc_crd_gang, cardX, cardY + 20);
-              text(card.card.ugc_crd_info, cardX - 50, cardY + 45, 100);
-              fill(0);
-              textStyle(NORMAL);
-              noTint();
             }else{
+
+              if(!card.hover && !card.dragging){
+                image(GameInfo.images.cardbackground[card.card.ugc_crd_image], cardX, cardY - 47, 120 - 3, 190 - 105);
+                image(this.cardimg, cardX, cardY, 120, 190);
+                noTint();
+                textAlign(CENTER, CENTER);
+                fill(255);
+                textStyle(BOLD);
+                textSize(15);
+                stroke(0);
+                strokeWeight(2);
+                text(card.card.ugc_crd_cost, cardX - 49, cardY - 80);
+                text(card.card.ugc_crd_damage, cardX - 49, cardY + 80);
+                text(card.card.ugc_crd_health, cardX + 49, cardY + 80);
+                strokeWeight(1);
+                noStroke();
+                textSize(13);
+                text(card.card.ugc_crd_name, cardX, cardY + 10);
+                textSize(10);
+                textAlign(CENTER, TOP);
+                text(card.card.ugc_crd_gang, cardX, cardY + 20);
+                fill(0);
+                textStyle(NORMAL);
+                noTint();
+              }
+
+              if(GameInfo.game.player.state != "Waiting") {
+                if(mouseX > cardX - 120 / 2 && mouseX < cardX + 120 / 2 && mouseY > cardY - 190 / 2 && mouseY < cardY + 190 / 2){
+                  if(!GameInfo.dragging){
+                    card.x = cardX;
+                    card.y = cardY;
+                    card.hover = true;
+                  }
+                }else{
+                  card.hover = false;
+                }
+              }
+
               if (card.dragging) {
                 tint(255, 100);
+                image(GameInfo.images.cardbackground[card.card.ugc_crd_image], card.dragx, card.dragy - 47, Cards.width - 3, Cards.height - 105);
                 image(this.cardimg, card.dragx, card.dragy, Cards.width, Cards.height);
+                textAlign(CENTER, CENTER);
+                fill(255);
+                textStyle(BOLD);
+                textSize(15);
+                stroke(0);
+                strokeWeight(2);
+                text(card.card.ugc_crd_cost, card.dragx - 49, card.dragy - 80);
+                text(card.card.ugc_crd_damage, card.dragx - 49, card.dragy + 80);
+                text(card.card.ugc_crd_health, card.dragx + 49, card.dragy + 80);
+                strokeWeight(1);
+                noStroke();
+                textSize(13);
+                text(card.card.ugc_crd_name, card.dragx, card.dragy + 10);
+                textSize(10);
+                textAlign(CENTER, TOP);
+                text(card.card.ugc_crd_gang, card.dragx, card.dragy + 20);
+                fill(0);
+                textStyle(NORMAL);
                 tint(255, 255);
               }
-
-              image(
-                  this.cardimg,
-                  cardX,
-                  cardY,
-                  120, //this.cardsize,
-                  190 //this.cardsize
-                );
-              noTint();
-              textAlign(CENTER, CENTER);
-              fill(255);
-              textStyle(BOLD);
-              textSize(15);
-              stroke(0);
-              strokeWeight(2);
-              text(card.card.ugc_crd_cost, cardX - 49, cardY - 80);
-              text(card.card.ugc_crd_damage, cardX - 49, cardY + 80);
-              text(card.card.ugc_crd_health, cardX + 49, cardY + 80);
-              strokeWeight(1);
-              noStroke();
-              textSize(13);
-              text(card.card.ugc_crd_name, cardX, cardY + 10);
-              textSize(10);
-              textAlign(CENTER, TOP);
-              text(card.card.ugc_crd_gang, cardX, cardY + 20);
-              fill(0);
-              textStyle(NORMAL);
-              noTint();
             }
           }
         }
@@ -196,6 +323,7 @@ class Bench {
         for (let card of this.cards) {
           if (card.card.ugben_crd_id == column.posOpponent) {
             if(card.card.ugc_crd_type_id == 4){
+              image(GameInfo.images.cardbackground[card.card.ugc_crd_image], cardX, cardY - 47, 120 - 3, 190 - 105);
               image(this.hacksimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);
@@ -217,6 +345,7 @@ class Bench {
               textStyle(NORMAL);
               noTint();
             }else{
+              image(GameInfo.images.cardbackground[card.card.ugc_crd_image], cardX, cardY - 47, 120 - 3, 190 - 105);
               image(this.cardimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);
@@ -269,6 +398,7 @@ class Bench {
               card.dragging = true;
               this.draggingCard = card;
               GameInfo.dragbenchtoboard = true;
+              GameInfo.dragging = true;
             }
           }
         }
@@ -281,6 +411,7 @@ class Bench {
       return;
     }
     this.draggingCard.dragging = false;
+    GameInfo.dragging = false;
     if (this.dragAction) {
       this.dragAction(mouseX, mouseY, this.draggingCard.card);
     }

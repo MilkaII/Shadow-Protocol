@@ -28,6 +28,7 @@ class GameInfo {
   static bench;
 
   //verification
+  static dragging = false;
   static dragbenchtoboard = false;
   static attackcard = false;
 

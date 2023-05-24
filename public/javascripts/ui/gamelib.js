@@ -22,7 +22,13 @@ function preload() {
   GameInfo.images.hack = loadImage("/assets/hack_template.png");
   GameInfo.images.chief = loadImage("/assets/chief_template.png");
   GameInfo.images.backgroundgame = loadImage("/assets/background_game.jpg");
-  //GameInfo.images.boardbg = loadImage("/assets/window_green.png");
+  GameInfo.images.chipplayer = loadImage("/assets/chip_p.png");
+  GameInfo.images.chipopp = loadImage("/assets/chip_o.png");
+  GameInfo.images.cardbackground = [];
+
+  for(var i = 0; i < 18; i++){
+    GameInfo.images.cardbackground[i] = loadImage("/assets/CardsBackground/CardBackground" + i + ".png");
+  }
 }
 
 async function setup() {
@@ -84,13 +90,13 @@ function draw() {
   } else if (GameInfo.game.state == "Finished" && GameInfo.scoreWindow) {
     GameInfo.scoreWindow.draw();
   } else if (GameInfo.game.state != "Choose Deck" && GameInfo.game.state != "Ready"){
-    GameInfo.playerDeck.draw();
-    GameInfo.oppDeck.draw();
-    GameInfo.playerDeck.updateDrag();
     GameInfo.scoreBoard.draw();
     GameInfo.board.draw();
     GameInfo.bench.draw();
     GameInfo.bench.updateDrag();
+    GameInfo.oppDeck.draw();
+    GameInfo.playerDeck.draw();
+    GameInfo.playerDeck.updateDrag();
   }
 }
 

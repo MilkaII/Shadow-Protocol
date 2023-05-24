@@ -112,7 +112,7 @@ class Board {
                   }
                 }
               }
-
+              image(GameInfo.images.cardbackground[card.ugc_crd_image], cardX, cardY - 47, 120 - 3, 190 - 105);
               image(this.cardimg, cardX, cardY, 120, 190);
               //noTint();
               textAlign(CENTER, CENTER);
@@ -150,6 +150,7 @@ class Board {
                   }
                 }
               }
+              image(GameInfo.images.cardbackground[card.ugc_crd_image], cardX, cardY - 47, 120 - 3, 190 - 105);
               image(this.cardimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);
@@ -198,7 +199,7 @@ class Board {
                   }
                 }
               }*/
-
+              image(GameInfo.images.cardbackground[card.ugc_crd_image], cardX, cardY - 47, 120 - 3, 190 - 105);
               image(this.chiefimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);
@@ -235,7 +236,7 @@ class Board {
                   }
                 }
               }
-
+              image(GameInfo.images.cardbackground[card.ugc_crd_image], cardX, cardY - 47, 120 - 3, 190 - 105);
               image(this.chiefimg, cardX, cardY, 120, 190);
               noTint();
               textAlign(CENTER, CENTER);

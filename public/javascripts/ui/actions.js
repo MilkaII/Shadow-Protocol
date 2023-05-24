@@ -88,8 +88,8 @@ async function getDecksInfo() {
     else
       GameInfo.playerDeck = new Deck(
         GameInfo.matchdeck.player,
-        65,
-        820,
+        77,
+        815,
         null,
         GameInfo.images.card,
         GameInfo.images.hack,
