@@ -308,9 +308,9 @@ class Deck {
       }
 
       let card = fromDBCardToCardGame(dbDeckCards[0]);
-      let playerchips = game.player.chips;
+      //let playerchips = game.player.chips;
 
-      if (playerchips < card.ugc_crd_cost) {
+      if (game.player.chips < card.ugc_crd_cost) {
         return { status: 400, result: { msg: "Not enough chips!" } };
       }
 
@@ -339,10 +339,10 @@ class Deck {
       );
 
       //Subtract player's chips
-      playerchips =  playerchips - card.ugc_crd_cost;
+      game.player.chips =  game.player.chips - card.ugc_crd_cost;
       await pool.query(
         `update user_game set ug_chips = ? where ug_user_id = ?`,
-        [playerchips, game.player.id]
+        [game.player.chips, game.player.id]
       );
 
       //Update card's state to "In Bench"
