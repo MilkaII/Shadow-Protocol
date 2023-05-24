@@ -339,7 +339,7 @@ class Deck {
       );
 
       //Subtract player's chips
-      playerchips -= card.ugc_crd_cost;
+      playerchips =  playerchips - card.ugc_crd_cost;
       await pool.query(
         `update user_game set ug_chips = ? where ug_user_id = ?`,
         [playerchips, game.player.id]

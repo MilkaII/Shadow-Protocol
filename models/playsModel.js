@@ -127,7 +127,7 @@ class Play {
 
       let playerchips = game.player.chips;
 
-      playerchips += Settings.nChipsPerTurn;
+      playerchips = playerchips + Settings.nChipsPerTurn;
       if (playerchips > Settings.MaxChips) playerchips = Settings.MaxChips;
       await pool.query(
         `update user_game set ug_chips = ? where ug_user_id = ?`,
