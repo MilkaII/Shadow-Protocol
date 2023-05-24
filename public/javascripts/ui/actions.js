@@ -189,21 +189,21 @@ async function clickActionAttack(x, y) {
 }
 
 async function playCardFromHandToBench(card, position) {
-  if (confirm(`Do you want to play the "${card.ugc_crd_name}" card?`)) {
+  //if (confirm(`Do you want to play the "${card.ugc_crd_name}" card?`)) {
     let result = await requestPlayCardFromHandToBench(card.ugc_id, position);
     if (result.successful) {
       await getGameInfo();
       await getBoardInfo();
       await getBenchInfo();
       await getDecksInfo();
-      alert(result.msg);
+      //alert(result.msg);
     }
-  }
+  //}
 }
 
 async function playCardFromBenchToBoard(card, position) {
   if (card.ugc_crd_type_id != 4){
-    if (confirm(`Do you want to play the "${card.ugc_crd_name}" card?`)) {
+    //if (confirm(`Do you want to play the "${card.ugc_crd_name}" card?`)) {
       let result = await requestPlayCardFromBenchToBoard(card.ugc_id, position);
       if (result.successful) {
         await getGameInfo();
@@ -211,11 +211,11 @@ async function playCardFromBenchToBoard(card, position) {
         await getBenchInfo();
         await getDecksInfo();
         GameInfo.dragbenchtoboard = false;
-        alert(result.msg);
+        //alert(result.msg);
       }
-    }
+    //}
   }else{
-    if (confirm(`Do you want to use this hack?`)) {
+    //if (confirm(`Do you want to use this hack?`)) {
       let result = await requestPlayCardFromBenchToBoard(card.ugc_id, position);
       if (result.successful) {
         await getGameInfo();
@@ -223,9 +223,9 @@ async function playCardFromBenchToBoard(card, position) {
         await getBenchInfo();
         await getDecksInfo();
         GameInfo.dragbenchtoboard = false;
-        alert(result.msg);
+        //alert(result.msg);
       }
-    }
+    //}
   }
 }
 
@@ -238,7 +238,7 @@ async function attackCard(playercard, oppcard) {
     await getBenchInfo();
     await getDecksInfo();
     GameInfo.cardattack = false;
-    alert(result.msg);
+    //alert(result.msg);
   }
   //}
 }

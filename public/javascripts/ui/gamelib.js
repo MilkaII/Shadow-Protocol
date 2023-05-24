@@ -24,8 +24,8 @@ function preload() {
   GameInfo.images.backgroundgame = loadImage("/assets/background_game.jpg");
   GameInfo.images.chipplayer = loadImage("/assets/chip_p.png");
   GameInfo.images.chipopp = loadImage("/assets/chip_o.png");
+  GameInfo.images.highlight = loadImage("/assets/Highlight.png");
   GameInfo.images.cardbackground = [];
-
   for(var i = 0; i < 18; i++){
     GameInfo.images.cardbackground[i] = loadImage("/assets/CardsBackground/CardBackground" + i + ".png");
   }

@@ -184,6 +184,17 @@ class Bench {
         this.y + this.height / 2 - 140
       );
       strokeWeight(0);
+
+      let higlightX = this.x + column.position * this.colsize + 87;
+      let higlightY = this.y + Bench.headery + this.rowsize + (this.rowsize + 860) / 2;
+      if (mouseX > higlightX - 120 / 2 && mouseX < higlightX + 120 / 2 && mouseY > higlightY - 190 / 2 && mouseY < higlightY + 190 / 2) {
+        if(GameInfo.dragging){
+          tint(255, 150);
+          image(GameInfo.images.highlight, higlightX, higlightY, 120, 190);
+          tint(255, 255);
+        }
+      }
+
       if (column.posPlayer) {
         let cardX = this.x + column.position * this.colsize + 87;
         let cardY = this.y + Bench.headery + this.rowsize + (this.rowsize + 860) / 2;
