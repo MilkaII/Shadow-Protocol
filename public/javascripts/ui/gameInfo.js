@@ -130,7 +130,8 @@ class GameInfo {
       GameInfo.loaderreadyspan3.hide();
       GameInfo.loaderreadyspan4.hide();
       GameInfo.cancelattack.hide();
-      GameInfo.endturnButton.hide();
+      GameInfo.endturnButtonp.hide();
+      GameInfo.endturnButtonw.hide();
       GameInfo.choosedeck1button.hide();
       GameInfo.choosedeck2button.hide();
       GameInfo.scoreWindow.open();
