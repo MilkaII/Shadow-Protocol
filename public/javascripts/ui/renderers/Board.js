@@ -23,6 +23,8 @@ function drawcard(card, img, x, y, width, height) {
         text(card.card.ugc_crd_health, x + 49, y + 80);
         fill(255);
         GameInfo.cardattackend = false;
+      }else{
+        text(card.card.ugc_crd_health, x + 49, y + 80);
       }
     }else{
       text(card.card.ugc_crd_health, x + 49, y + 80);

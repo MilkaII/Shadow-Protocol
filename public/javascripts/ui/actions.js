@@ -138,11 +138,6 @@ async function endturnAction() {
 
 async function CancelAttack() {
   GameInfo.selectedCards = [];
-  /*let result = await requestEndTurn();
-  if (result.successful) {
-    await getGameInfo();
-    GameInfo.prepareUI();
-  } else alert("Something went wrong when ending the turn.");*/
 }
 
 async function ChooseDeck1Action() {
@@ -183,6 +178,10 @@ async function clickActionAttack(x, y) {
 
   let card = GameInfo.board.getCardAt(x, y);
   GameInfo.selectedCards.push(card);
+
+  if(GameInfo.selectedCards[0] == null || GameInfo.selectedCards[1] == null){
+    return
+  }
 
   if(GameInfo.selectedCards[0].ugc_crd_active == false){
     alert("You can't use this card");
