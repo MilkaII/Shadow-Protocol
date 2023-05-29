@@ -54,7 +54,7 @@ async function setup() {
   await getBoardInfo();
   await getBenchInfo();
   await getDecksInfo();
-  setInterval(refresh, 1000);
+  setInterval(refresh, 2000);
 
   //buttons (create a separated function if they are many)
   // end turn button
