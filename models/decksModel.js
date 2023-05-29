@@ -176,6 +176,8 @@ class CardGame {
 }
 
 class Deck {
+  static replacecardc = false;
+  static replacecardlimit = 0;
   constructor(deck_id, deck_crd_id, deck_crd_qty, ugc_id) {
     this.deck_id = deck_id;
     this.deck_crd_id = deck_crd_id;
@@ -248,6 +250,29 @@ class Deck {
     }
   }
 
+  static async getCardsindeck(game) {
+    try {
+      let [dbDecks] = await pool.query(
+        "select Count(*) cards from user_game_card where ugc_user_game_id = ? and crd_state_id = 1",
+        [game.player.id]
+      );
+      let [dbODecks] = await pool.query(
+        "select Count(*) cards from user_game_card where ugc_user_game_id = ? and crd_state_id = 1",
+        [game.opponents[0].id]
+      );
+
+      let deckcards = {};
+      deckcards.playercards = dbDecks[0].cards;
+      deckcards.opponentcards = dbODecks[0].cards;
+      
+      return {status: 200, result: deckcards};
+
+    } catch (err) {
+      console.log(err);
+      return { status: 500, result: err };
+    }
+  }
+
   static async genPlayerHand(playerId) {
     try {
       let cards = [];
@@ -308,9 +333,9 @@ class Deck {
       }
 
       let card = fromDBCardToCardGame(dbDeckCards[0]);
-      //let playerchips = game.player.chips;
+      let playerchips = game.player.chips;
 
-      if (game.player.chips < card.ugc_crd_cost) {
+      if (playerchips < card.ugc_crd_cost) {
         return { status: 400, result: { msg: "Not enough chips!" } };
       }
 
@@ -339,10 +364,10 @@ class Deck {
       );
 
       //Subtract player's chips
-      game.player.chips =  game.player.chips - card.ugc_crd_cost;
+      playerchips =  playerchips - card.ugc_crd_cost;
       await pool.query(
-        `update user_game set ug_chips = ? where ug_user_id = ?`,
-        [game.player.chips, game.player.id]
+        `update user_game set ug_chips = ? where ug_id = ?`,
+        [playerchips, game.player.id]
       );
 
       //Update card's state to "In Bench"
@@ -351,6 +376,53 @@ class Deck {
         [game.player.id, cardid]
       );
       return { status: 200, result: { msg: "Card played!" } };
+    } catch (err) {
+      console.log(err);
+      return { status: 500, result: err };
+    }
+  }
+
+  static async replacecard(activecard, card, Boardcolumn, game) {
+    try {
+      //card active in the board
+      let [dbCardActive] = await pool.query(
+        "select * from user_game_card where ugc_user_game_id = ? and crd_state_id = 4 and ugc_id = ?",
+        [game.player.id, activecard]
+      );
+      let cardactive = fromDBCardToCardGame(dbCardActive[0]);
+
+      if (!cardactive.ugc_crd_active) {
+        return;
+      }
+
+      //card position from the bench
+      let [dbposition] = await pool.query(
+        "select ugben_pos_id from user_game_bench where ugben_ug_id = ? and ugben_crd_id = ?",
+        [game.player.id, card.ugc_id]
+      );
+
+      //update no bench para meter a carta do board no bench
+      await pool.query(
+        `update user_game_bench set ugben_crd_id = ? where ugben_ug_id = ? and ugben_pos_id = ?`,
+        [cardactive.ugc_id, game.player.id, dbposition[0].ugben_pos_id]
+      );
+      await pool.query(
+        `update user_game_card set ugc_infield = false, crd_state_id = 3 where ugc_user_game_id = ? and ugc_id = ?`,
+        [game.player.id, cardactive.ugc_id]
+      );
+
+      //update no board para receber a carta do bench
+      await pool.query(
+        `update user_game_board set ugb_crd_id = ? where ugb_ug_id = ? and ugb_pos_id = ?`,
+        [card.ugc_id, game.player.id, Boardcolumn]
+      );
+      await pool.query(
+        `update user_game_card set ugc_infield = true, crd_state_id = 4 where ugc_user_game_id = ? and ugc_id = ?`,
+        [game.player.id, card.ugc_id]
+      );
+
+      Deck.replacecardlimit += 1;
+      return { status: 200, result: { msg: "replaced card!" } };
     } catch (err) {
       console.log(err);
       return { status: 500, result: err };
@@ -390,15 +462,16 @@ class Deck {
       //Verify if selected position was already taken
       if(card.ugc_crd_type_id != 4){
         if (columns[column - 1].posPlayer) {
-          return {
-            status: 200,
-            result: { msg: "You already placed a value at that position" },
-          };
+          Deck.replacecardc = true;
+          let activecard = columns[column - 1].posPlayer;
+          if(Deck.replacecardlimit != 2){
+            await Deck.replacecard(activecard, card, column, game);
+          }
         }
       }
 
       //remove from bench
-      if(card.ugc_crd_type_id != 4){
+      if(card.ugc_crd_type_id != 4 && !Deck.replacecardc){
         await pool.query("delete from user_game_bench where ugben_crd_id = ?", [
           cardid,
         ]);
@@ -453,7 +526,7 @@ class Deck {
       }
 
       //Update Board
-      if(card.ugc_crd_type_id != 4){
+      if(card.ugc_crd_type_id != 4 && !Deck.replacecardc){
         columns[column - 1].posPlayer = cardid;
         await pool.query(
           `Insert into user_game_board(ugb_ug_id,ugb_pos_id,ugb_crd_id) 
@@ -463,13 +536,14 @@ class Deck {
       }
 
       //Update card's state
-      if(card.ugc_crd_type_id != 4){
+      if(card.ugc_crd_type_id != 4 && !Deck.replacecardc){
         await pool.query(
           `update user_game_card set ugc_infield = true, crd_state_id = 4 where ugc_user_game_id = ? and ugc_id = ?`,
           [game.player.id, cardid]
         );
       }
       
+      Deck.replacecardc = false;
       return { status: 200, result: { msg: "Card played!" } };
     } catch (err) {
       console.log(err);

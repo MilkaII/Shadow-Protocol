@@ -25,6 +25,10 @@ function preload() {
   GameInfo.images.chipplayer = loadImage("/assets/chip_p.png");
   GameInfo.images.chipopp = loadImage("/assets/chip_o.png");
   GameInfo.images.highlight = loadImage("/assets/Highlight.png");
+  GameInfo.images.win = loadImage("/assets/win.png");
+  GameInfo.images.lose = loadImage("/assets/lose.png");
+  GameInfo.images.turn = loadImage("/assets/your_turn.png");
+  GameInfo.images.deck = loadImage("/assets/Deck.png");
   GameInfo.images.cardbackground = [];
   for(var i = 0; i < 18; i++){
     GameInfo.images.cardbackground[i] = loadImage("/assets/CardsBackground/CardBackground" + i + ".png");
@@ -37,6 +41,7 @@ async function setup() {
 
   imageMode(CENTER);
   angleMode(DEGREES);
+  frameRate(60);
   // preload  images
 
   await getGameInfo();
@@ -47,11 +52,22 @@ async function setup() {
 
   //buttons (create a separated function if they are many)
   // end turn button
-  GameInfo.endturnButton = createButton("End Turn");
-  GameInfo.endturnButton.parent("game");
-  GameInfo.endturnButton.position(GameInfo.width - 150, GameInfo.height - 50);
-  GameInfo.endturnButton.mousePressed(endturnAction);
-  GameInfo.endturnButton.addClass("game");
+  GameInfo.endturnButtonp = createButton("End Turn");
+  GameInfo.endturnButtonp.parent("game");
+  GameInfo.endturnButtonp.position(GameInfo.width - 270, GameInfo.height - 150);
+  GameInfo.endturnButtonp.mousePressed(endturnAction);
+  GameInfo.endturnButtonp.addClass("game");
+ 
+  GameInfo.endturnButtonw = createButton("Opponent Turn");
+  GameInfo.endturnButtonw.parent("game");
+  GameInfo.endturnButtonw.position(GameInfo.width - 270, GameInfo.height - 150);
+  GameInfo.endturnButtonw.addClass("game2");
+
+  GameInfo.cancelattack = createButton("X");
+  GameInfo.cancelattack.parent("game");
+  GameInfo.cancelattack.position(GameInfo.width - 430, GameInfo.height - 515);
+  GameInfo.cancelattack.mousePressed(CancelAttack);
+  GameInfo.cancelattack.addClass("game3");
 
   //Choose deck 1 button
   GameInfo.choosedeck1button = createButton("Deck 1");
@@ -92,11 +108,18 @@ function draw() {
   } else if (GameInfo.game.state != "Choose Deck" && GameInfo.game.state != "Ready"){
     GameInfo.scoreBoard.draw();
     GameInfo.board.draw();
+    GameInfo.board.updateboardcards();
     GameInfo.bench.draw();
     GameInfo.bench.updateDrag();
     GameInfo.oppDeck.draw();
     GameInfo.playerDeck.draw();
     GameInfo.playerDeck.updateDrag();
+    GameInfo.yourturn.draw();
+    if(GameInfo.selectedCards.length == 1){
+      GameInfo.cancelattack.show();
+    }else{
+      GameInfo.cancelattack.hide();
+    }
   }
 }
 

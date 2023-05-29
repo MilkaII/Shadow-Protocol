@@ -7,6 +7,9 @@ async function getGameInfo() {
     GameInfo.game = result.game;
     if (GameInfo.scoreBoard) GameInfo.scoreBoard.update(GameInfo.game);
     else GameInfo.scoreBoard = new ScoreBoard(GameInfo.game);
+
+    if (GameInfo.yourturn) GameInfo.yourturn.update(GameInfo.game);
+    else GameInfo.yourturn = new YourTurn(GameInfo.game);
     // if game ended we get the scores and prepare the ScoreWindow
     if (GameInfo.game.state == "Finished") {
       let result = await requestScore();
@@ -31,10 +34,11 @@ async function getBoardInfo() {
   } else {
     GameInfo.gameboard = result.board;
     GameInfo.cardsInBoard = cards.result;
-    if (GameInfo.board) GameInfo.board.update(GameInfo.gameboard);
+    if (GameInfo.board) GameInfo.board.update(GameInfo.gameboard, GameInfo.cardsInBoard);
     else
       GameInfo.board = new Board(
         GameInfo.gameboard,
+        GameInfo.cardsInBoard,
         GameInfo.game.player.name,
         GameInfo.game.opponents[0].name,
         570,
@@ -79,12 +83,14 @@ async function getBenchInfo() {
 
 async function getDecksInfo() {
   let result = await requestDeckChoosen();
+  let cards = await requestCardsInDeck();
   if (!result.successful) {
     alert("Something is wrong with the game please login again!");
     window.location.pathname = "index.html";
   } else {
     GameInfo.matchdeck = result.deck;
-    if (GameInfo.playerDeck) GameInfo.playerDeck.update(GameInfo.matchdeck.player);
+    GameInfo.cardsindeck = cards.deckcards;
+    if (GameInfo.playerDeck) GameInfo.playerDeck.update(GameInfo.matchdeck.player, GameInfo.cardsindeck.playercards);
     else
       GameInfo.playerDeck = new Deck(
         GameInfo.matchdeck.player,
@@ -93,7 +99,8 @@ async function getDecksInfo() {
         null,
         GameInfo.images.card,
         GameInfo.images.hack,
-        dragndropFromHandToBench
+        dragndropFromHandToBench,
+        GameInfo.cardsindeck.playercards
       );
 
     if (GameInfo.oppDeck) GameInfo.oppDeck.update(GameInfo.matchdeck.opponent);
@@ -127,6 +134,15 @@ async function endturnAction() {
     await getGameInfo();
     GameInfo.prepareUI();
   } else alert("Something went wrong when ending the turn.");
+}
+
+async function CancelAttack() {
+  GameInfo.selectedCards = [];
+  /*let result = await requestEndTurn();
+  if (result.successful) {
+    await getGameInfo();
+    GameInfo.prepareUI();
+  } else alert("Something went wrong when ending the turn.");*/
 }
 
 async function ChooseDeck1Action() {

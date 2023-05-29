@@ -16,8 +16,19 @@ router.get("/auth", auth.verifyAuth, async function (req, res, next) {
 
 router.get("/ChoosenDeck", auth.verifyAuth, async function (req, res, next) {
   try {
-    console.log("Get decks");
+    console.log("Get Choosen decks");
     let result = await Deck.getDeckchoosen(req.game);
+    res.status(result.status).send(result.result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+});
+
+router.get("/Cardsindeck", auth.verifyAuth, async function (req, res, next) {
+  try {
+    console.log("Get cards");
+    let result = await Deck.getCardsindeck(req.game);
     res.status(result.status).send(result.result);
   } catch (err) {
     console.log(err);

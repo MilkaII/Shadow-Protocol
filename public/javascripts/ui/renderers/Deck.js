@@ -308,7 +308,7 @@ class Deck {
   static nCards = 3;
   selectedCard = null;
 
-  constructor(cardsInfo, x, y, clickAction, cardImg, hacksimg, dragAction) {
+  constructor(cardsInfo, x, y, clickAction, cardImg, hacksimg, dragAction, cardsindeck) {
     this.x = x;
     this.y = y;
     this.width = Card.width * Deck.nCards;
@@ -319,6 +319,7 @@ class Deck {
     this.draggable = false;
     this.dragAction = dragAction;
     this.draggingCard = null;
+    this.cardsindeck = cardsindeck;
   }
 
   createCards(cardsInfo) {
@@ -337,8 +338,9 @@ class Deck {
     return cards;
   }
 
-  update(cardsInfo) {
+  update(cardsInfo, cardsindeck) {
     this.cards = this.createCards(cardsInfo);
+    this.cardsindeck = cardsindeck;
   }
 
   updateDrag() {
@@ -360,7 +362,21 @@ class Deck {
     textAlign(CENTER, CENTER);
     for (let card of this.cards) {
       card.draw();
-    }
+    };
+    textSize(0);
+    image(GameInfo.images.deck, this.x + 1350, this.y + 50, Card.width + 30, Card.height);
+    fill(255);
+    textStyle(BOLD);
+    textSize(35);
+    stroke(0);
+    strokeWeight(5);
+    text(
+      this.cardsindeck,
+      this.x + 1360,
+      this.y + 40
+    );
+    strokeWeight(0);
+
   }
 
   //se houver problemas com o dragndrop ver isto aqui

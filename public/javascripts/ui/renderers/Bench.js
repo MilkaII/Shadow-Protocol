@@ -188,7 +188,7 @@ class Bench {
       let higlightX = this.x + column.position * this.colsize + 87;
       let higlightY = this.y + Bench.headery + this.rowsize + (this.rowsize + 860) / 2;
       if (mouseX > higlightX - 120 / 2 && mouseX < higlightX + 120 / 2 && mouseY > higlightY - 190 / 2 && mouseY < higlightY + 190 / 2) {
-        if(GameInfo.dragging){
+        if(GameInfo.dragging && !GameInfo.dragbenchtoboard){
           tint(255, 150);
           image(GameInfo.images.highlight, higlightX, higlightY, 120, 190);
           tint(255, 255);
@@ -392,24 +392,27 @@ class Bench {
     }
 
     //add if for limit the drandrop
+    
     let pos = Math.floor((mouseX - this.x) / this.colsize) - 1;
     let cardpress = this.columns[pos];
 
     for (let column of this.columns) {
-      if (column.posPlayer == cardpress.posPlayer) {
-        let cardX = this.x + column.position * this.colsize + 67;
-        let cardY = this.y + Bench.headery + this.rowsize + (this.rowsize + 860) / 2;
-        for (let card of this.cards) {
-          if (card.card.ugben_crd_id == cardpress.posPlayer) {
-            if (this.draggable && mouseX > cardX - Cards.width / 2 && mouseX < cardX + Cards.width / 2 && mouseY > cardY - Cards.height / 2 && mouseY < cardY + Cards.height / 2) {
-              card.offsetX = cardX - mouseX;
-              card.offsetY = cardY - mouseY;
-              card.dragx = mouseX + card.offsetX;
-              card.dragy = mouseY + card.offsetY;
-              card.dragging = true;
-              this.draggingCard = card;
-              GameInfo.dragbenchtoboard = true;
-              GameInfo.dragging = true;
+      let cardX = this.x + column.position * this.colsize + 67;
+      let cardY = this.y + Bench.headery + this.rowsize + (this.rowsize + 860) / 2;
+      if(mouseX > cardX - 120 / 2 && mouseX < cardX + 120 / 2 && mouseY > cardY - 190 / 2 && mouseY < cardY + 190 / 2){
+        if (column.posPlayer == cardpress.posPlayer) {
+          for (let card of this.cards) {
+            if (card.card.ugben_crd_id == cardpress.posPlayer) {
+              if (this.draggable && mouseX > cardX - Cards.width / 2 && mouseX < cardX + Cards.width / 2 && mouseY > cardY - Cards.height / 2 && mouseY < cardY + Cards.height / 2) {
+                card.offsetX = cardX - mouseX;
+                card.offsetY = cardY - mouseY;
+                card.dragx = mouseX + card.offsetX;
+                card.dragy = mouseY + card.offsetY;
+                card.dragging = true;
+                this.draggingCard = card;
+                GameInfo.dragbenchtoboard = true;
+                GameInfo.dragging = true;
+              }
             }
           }
         }

@@ -130,7 +130,7 @@ class Play {
       playerchips = playerchips + Settings.nChipsPerTurn;
       if (playerchips > Settings.MaxChips) playerchips = Settings.MaxChips;
       await pool.query(
-        `update user_game set ug_chips = ? where ug_user_id = ?`,
+        `update user_game set ug_chips = ? where ug_id = ?`,
         [playerchips, game.player.id]
       );
 
@@ -146,6 +146,8 @@ class Play {
         "update user_game_card set ugc_crd_active = true where ugc_user_game_id = ? and crd_state_id = 4",
         [game.player.id]
       );
+      
+      Deck.replacecardlimit = 0;
 
       return { status: 200, result: { msg: "Your turn ended." } };
     } catch (err) {
