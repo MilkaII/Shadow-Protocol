@@ -52,6 +52,13 @@
                 </div>
             </div>
         </div>
+        <audio id="myaudio" autoplay loop >
+            <source src="/assets/audio/lifelike.mp3" type="audio/mp3">
+        </audio>
+        <script>
+            var audio = document.getElementById("myaudio");
+            audio.volume = 0.05;
+        </script>
         <script>
           const sign_in_button = document.querySelector('#sign-in-button');
           const sign_up_button = document.querySelector('#sign-up-button');

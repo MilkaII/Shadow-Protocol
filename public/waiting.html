@@ -27,5 +27,12 @@
             <input type="button" class = "btn solid" value="Cancel game" onclick="cancel()">
         </div>
     </div>
+    <audio autoplay loop id="myaudio">
+        <source src="/assets/audio/tension.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+        var audio = document.getElementById("myaudio");
+        audio.volume = 0.05;
+    </script>
 </body>
 </html>

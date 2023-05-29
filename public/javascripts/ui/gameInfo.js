@@ -30,7 +30,7 @@ class GameInfo {
   static bench;
   static turn;
 
-  //verification
+  // verification
   static dragging = false;
   static dragbenchtoboard = false;
   static cardattack = false;
@@ -43,11 +43,29 @@ class GameInfo {
   static choosedeck1button;
   static choosedeck2button;
 
+  // spans/divs
+  static titlechoosedeck;
+  static titleready;
+  static subtitleready;
+  static loaderready;
+  static loaderreadyspan1;
+  static loaderreadyspan2;
+  static loaderreadyspan3;
+  static loaderreadyspan4;
+
   // Write your UI settings for each game state here
   // Call the method every time there is a game state change
   static prepareUI() {
     if (GameInfo.game.player.state == "Choose Deck") {
       //GameInfo.scoreBoard.show();
+      GameInfo.titlechoosedeck.show();
+      GameInfo.titleready.hide();
+      GameInfo.subtitleready.hide();
+      GameInfo.loaderready.hide();
+      GameInfo.loaderreadyspan1.hide();
+      GameInfo.loaderreadyspan2.hide();
+      GameInfo.loaderreadyspan3.hide();
+      GameInfo.loaderreadyspan4.hide();
       GameInfo.cancelattack.hide();
       GameInfo.choosedeck1button.show();
       GameInfo.choosedeck2button.show();
@@ -56,6 +74,14 @@ class GameInfo {
       GameInfo.playerDeck.draggable = false;
       GameInfo.bench.draggable = false;
     } else if (GameInfo.game.player.state == "Ready") {
+      GameInfo.titleready.show();
+      GameInfo.subtitleready.show();
+      GameInfo.loaderready.show();
+      GameInfo.loaderreadyspan1.show();
+      GameInfo.loaderreadyspan2.show();
+      GameInfo.loaderreadyspan3.show();
+      GameInfo.loaderreadyspan4.show();
+      GameInfo.titlechoosedeck.hide();
       GameInfo.cancelattack.hide();
       GameInfo.endturnButtonp.hide();
       GameInfo.endturnButtonw.hide();
@@ -64,6 +90,14 @@ class GameInfo {
       GameInfo.playerDeck.draggable = false;
       GameInfo.bench.draggable = false;
     } else if (GameInfo.game.player.state == "Playing") {
+      GameInfo.titlechoosedeck.hide();
+      GameInfo.subtitleready.hide();
+      GameInfo.loaderready.hide();
+      GameInfo.titleready.hide();
+      GameInfo.loaderreadyspan1.hide();
+      GameInfo.loaderreadyspan2.hide();
+      GameInfo.loaderreadyspan3.hide();
+      GameInfo.loaderreadyspan4.hide();
       GameInfo.endturnButtonp.show();
       GameInfo.endturnButtonw.hide();
       GameInfo.choosedeck1button.hide();
@@ -71,6 +105,14 @@ class GameInfo {
       GameInfo.playerDeck.draggable = true;
       GameInfo.bench.draggable = true;
     } else if (GameInfo.game.player.state == "Waiting") {
+      GameInfo.titlechoosedeck.hide();
+      GameInfo.subtitleready.hide();
+      GameInfo.loaderready.hide();
+      GameInfo.titleready.hide();
+      GameInfo.loaderreadyspan1.hide();
+      GameInfo.loaderreadyspan2.hide();
+      GameInfo.loaderreadyspan3.hide();
+      GameInfo.loaderreadyspan4.hide();
       GameInfo.cancelattack.hide();
       GameInfo.endturnButtonp.hide();
       GameInfo.endturnButtonw.show();
@@ -79,6 +121,14 @@ class GameInfo {
       GameInfo.playerDeck.draggable = false;
       GameInfo.bench.draggable = false;
     } else if (GameInfo.game.player.state == "Score") {
+      GameInfo.titlechoosedeck.hide();
+      GameInfo.subtitleready.hide();
+      GameInfo.loaderready.hide();
+      GameInfo.titleready.hide();
+      GameInfo.loaderreadyspan1.hide();
+      GameInfo.loaderreadyspan2.hide();
+      GameInfo.loaderreadyspan3.hide();
+      GameInfo.loaderreadyspan4.hide();
       GameInfo.cancelattack.hide();
       GameInfo.endturnButton.hide();
       GameInfo.choosedeck1button.hide();

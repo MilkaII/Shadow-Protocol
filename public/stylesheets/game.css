@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
 body {
     margin: 0;
     padding: 0;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
   
   a {
@@ -92,5 +94,104 @@ body {
   button.game3:hover {
     transform: scale(1.5); 
   }
-  
-  
+
+  button.game4 {
+    font-size: 1.5em;
+    background-image: url("/assets/leader1.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    background-color: transparent;
+    width: 220px;
+    height: 320px;
+    outline: none;
+    border: none;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  button.game4:hover {
+    transform: scale(1.2); 
+  }
+
+  button.game5 {
+    font-size: 1.5em;
+    background-image: url("/assets/leader2.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    background-color: transparent;
+    width: 220px;
+    height: 320px;
+    outline: none;
+    border: none;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  button.game5:hover{
+    transform: scale(1.2); 
+  }
+
+  span.game6 {
+    font-size: 3.5em;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  span.game7 {
+    font-size: 1.5em;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  div.loader {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    left: 48%;
+    border-radius: 50%;
+    background: linear-gradient(#CA28FF, #9938E6, #463ED1, #4D7DEA, #14B4ED);
+    animation: animate 0.5s linear infinite;
+  }
+  @keyframes animate{
+      0%{
+          transform: rotate(0deg);
+      }
+      100%{
+        transform: rotate(360deg);
+      }
+  }
+  div.loader span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient (#CA28FF, #9938E6, #463ED1, #4D7DEA, #14B4ED);
+  }
+  div.loader span:nth-child(1) {
+      filter: blur(5px);
+  }
+  div.loader span:nth-child(2) {
+      filter: blur(10px);
+  }
+  div.loader span:nth-child(3) {
+      filter: blur(25px);
+  }
+  div.loader span:nth-child(4) {
+      filter: blur(50px);
+  }
+  div.loader:after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      background: #010133;
+      border-radius: 50%;
+  }

@@ -17,6 +17,7 @@ async function refresh() {
 }
 
 function preload() {
+  // images
   GameInfo.images.card = loadImage("/assets/card_template.png");
   GameInfo.images.backcard = loadImage("/assets/backcard_template.png");
   GameInfo.images.hack = loadImage("/assets/hack_template.png");
@@ -33,6 +34,11 @@ function preload() {
   for(var i = 0; i < 18; i++){
     GameInfo.images.cardbackground[i] = loadImage("/assets/CardsBackground/CardBackground" + i + ".png");
   }
+
+  //sounds
+  // GameInfo.sounds.login = loadSound("/assets/audio/lifelike.mp3");
+  GameInfo.sounds.gameplay = loadSound("/assets/audio/password_infinity.mp3");
+  GameInfo.sounds.click = loadSound("/assets/audio/interface.mp3");
 }
 
 async function setup() {
@@ -70,25 +76,60 @@ async function setup() {
   GameInfo.cancelattack.addClass("game3");
 
   //Choose deck 1 button
-  GameInfo.choosedeck1button = createButton("Deck 1");
+  GameInfo.choosedeck1button = createButton("");
   GameInfo.choosedeck1button.parent("game");
   GameInfo.choosedeck1button.position(
-    GameInfo.width - 700,
-    GameInfo.height - 300
+    GameInfo.width - 1300,
+    GameInfo.height - 600
   );
   GameInfo.choosedeck1button.mousePressed(ChooseDeck1Action);
-  GameInfo.choosedeck1button.addClass("game");
+  GameInfo.choosedeck1button.addClass("game4");
   //Choose deck 2 button
-  GameInfo.choosedeck2button = createButton("Deck 2");
+  GameInfo.choosedeck2button = createButton("");
   GameInfo.choosedeck2button.parent("game");
   GameInfo.choosedeck2button.position(
-    GameInfo.width - 600,
-    GameInfo.height - 300
+    GameInfo.width - 800,
+    GameInfo.height - 600
   );
   GameInfo.choosedeck2button.mousePressed(ChooseDeck2Action);
-  GameInfo.choosedeck2button.addClass("game");
+  GameInfo.choosedeck2button.addClass("game5");
 
-  
+  GameInfo.titlechoosedeck = createSpan('Choose a Leader');
+  GameInfo.titlechoosedeck.parent("game");
+  GameInfo.titlechoosedeck.position(GameInfo.width - 1200, GameInfo.height - 800);
+  GameInfo.titlechoosedeck.addClass("game6");
+
+  GameInfo.titleready = createSpan('You are ready!!');
+  GameInfo.titleready.parent("game");
+  GameInfo.titleready.position(GameInfo.width - 1200, GameInfo.height - 700);
+  GameInfo.titleready.addClass("game6");
+
+  GameInfo.subtitleready = createSpan('Wait for the other player');
+  GameInfo.subtitleready.parent("game");
+  GameInfo.subtitleready.position(GameInfo.width - 1140, GameInfo.height - 630);
+  GameInfo.subtitleready.addClass("game7");
+
+  //start loader
+  GameInfo.loaderready = createDiv('');
+  GameInfo.loaderready.parent("game");
+  GameInfo.loaderready.position(GameInfo.width - 1040, GameInfo.height - 580);
+  GameInfo.loaderready.addClass("loader");
+  GameInfo.loaderreadyspan1 = createSpan('');
+  GameInfo.loaderreadyspan1.parent(GameInfo.loaderready);
+  GameInfo.loaderreadyspan2 = createSpan('');
+  GameInfo.loaderreadyspan2.parent(GameInfo.loaderready);
+  GameInfo.loaderreadyspan3 = createSpan('');
+  GameInfo.loaderreadyspan3.parent(GameInfo.loaderready);
+  GameInfo.loaderreadyspan4 = createSpan('');
+  GameInfo.loaderreadyspan4.parent(GameInfo.loaderready);
+  //end loader
+
+  //if(!GameInfo.sounds.gameplay.isPlaying()){
+    //GameInfo.sounds.gameplay.play();
+    GameInfo.sounds.gameplay.loop();
+    GameInfo.sounds.gameplay.setVolume(0.03);
+   
+  //}
 
   GameInfo.prepareUI();
 
@@ -124,11 +165,13 @@ function draw() {
 }
 
 async function mouseClicked() {
-  /*if ( GameInfo.playerDeck) {
-      GameInfo.playerDeck.click();
-  }*/
-  GameInfo.board.click();
-  //GameInfo.bench.click();
+  if(GameInfo.game.player.state == "Playing"){
+    GameInfo.board.click();
+  }
+  if(!GameInfo.sounds.click.isPlaying()){
+    GameInfo.sounds.click.play();
+    GameInfo.sounds.click.setVolume(0.2);
+  }
 }
 
 async function mousePressed() {
@@ -138,6 +181,10 @@ async function mousePressed() {
   if (GameInfo.bench) {
     GameInfo.bench.press();
   }
+  if(!GameInfo.sounds.click.isPlaying()){
+    GameInfo.sounds.click.play();
+    GameInfo.sounds.click.setVolume(0.2);
+  }
 }
 
 async function mouseReleased() {
@@ -146,5 +193,8 @@ async function mouseReleased() {
   }
   if (GameInfo.bench) {
     GameInfo.bench.release();
+  }
+  if(GameInfo.sounds.click.isPlaying()){
+    GameInfo.sounds.click.stop();
   }
 }  
