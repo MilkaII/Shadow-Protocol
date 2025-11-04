@@ -7,10 +7,9 @@ var morgan = require('morgan');
 var app = express();
 app.use(cookieSession({
   name: 'session',
-  secret: process.env.COOKIE_SECRET,
-  // Cookie Options
+  keys: [process.env.COOKIE_SECRET || 'fallback-secret'],
   maxAge: 6 * 60 * 60 * 1000 // 6 hours
-}))
+}));
 
 app.use(morgan('dev'));
 app.use(express.json());
