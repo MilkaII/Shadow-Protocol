@@ -43,7 +43,7 @@ app.use((err, req, res, next) => {
   res.status(500).send(err);
 })
 
-const port = parseInt(process.env.port || '8080');
+const port = parseInt(process.env.PORT || '8080', 10);
 app.listen(port,function() {
   console.log("Server running at http://localhost:"+port);
 });
