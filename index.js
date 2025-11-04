@@ -8,6 +8,7 @@ var app = express();
 app.use(cookieSession({
   name: 'session',
   secret: process.env.COOKIE_SECRET,
+  // Cookie Options
   maxAge: 6 * 60 * 60 * 1000 // 6 hours
 }))
 
@@ -24,24 +25,26 @@ const decksRouter = require("./routes/decksRoutes");
 const boardRoutes = require("./routes/boardRoutes");
 const benchRoutes = require("./routes/benchRoutes");
 
-app.use("/api/users", usersRouter);
-app.use("/api/games", gamesRouter);
-app.use("/api/plays", playsRouter);
-app.use("/api/scores", scoresRouter);
-app.use("/api/decks", decksRouter);
+app.use("/api/users",usersRouter);
+app.use("/api/games",gamesRouter);
+app.use("/api/plays",playsRouter);
+app.use("/api/scores",scoresRouter);
+app.use("/api/decks",decksRouter);
 app.use("/api/board", boardRoutes);
 app.use("/api/bench", benchRoutes);
 
+// when we don't find anything
 app.use((req, res, next) => {
-  res.status(404).send({ msg: "No resource or page found." });
-});
+  res.status(404).send({msg:"No resource or page found."});
+})
 
+// When we find an error (means it was not treated previously)
 app.use((err, req, res, next) => {
   console.error(err)
   res.status(500).send(err);
-});
+})
 
-const port = parseInt(process.env.PORT || '8080'); // <--- note the change
-app.listen(port, function () {
-  console.log("Server running at http://localhost:" + port);
+const port = parseInt(process.env.port || '8080');
+app.listen(port,function() {
+  console.log("Server running at http://localhost:"+port);
 });
