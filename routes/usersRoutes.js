@@ -25,15 +25,15 @@ router.get('/auth',auth.verifyAuth,  async function (req, res, next) {
 
 router.post('', async function (req, res, next) {
     try {
-        console.log("Register player ");
+        console.log("Register player ", req.body);
         let user = new User();
         user.name = req.body.username;
         user.pass = req.body.password;
         let result = await User.register(user);
         res.status(result.status).send(result.result);
     } catch (err) {
-        console.log(err);
-        res.status(500).send(err);
+        console.error("Error in registration:", err.message, err.stack);
+        res.status(500).send({ msg: "Internal server error", error: err.message });
     }
 });
 
